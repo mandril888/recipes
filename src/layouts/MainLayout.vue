@@ -37,6 +37,20 @@
             </q-item-section>
             <q-item-section> Home </q-item-section>
           </q-item>
+
+          <q-item :to="{ name: 'todo' }" exact clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="style" />
+            </q-item-section>
+            <q-item-section> ToDo </q-item-section>
+          </q-item>
+
+          <q-item :to="{ name: 'auth' }" exact clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="person" />
+            </q-item-section>
+            <q-item-section> Auth </q-item-section>
+          </q-item>
         </q-list>
       </q-scroll-area>
 
@@ -65,6 +79,30 @@
 import { computed, ref } from "vue";
 import { date } from "quasar";
 import EssentialLink from "components/EssentialLink.vue";
+
+// import { onMounted } from "vue";
+// import { storeToRefs } from "pinia";
+// import { useRouter } from "vue-router";
+// import { useUserStore } from "../stores/user.js";
+
+// const router = useRouter();
+// const userStore = useUserStore();
+// const { user } = storeToRefs(userStore);
+
+// onMounted(async () => {
+//   try {
+//     await userStore.fetchUser(); // here we call fetch user
+//     if (!user.value) {
+//       // redirect them to logout if the user is not there
+//       router.push({ path: "/auth" });
+//     } else {
+//       // continue to dashboard
+//       router.push({ path: "/" });
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
 
 const leftDrawerOpen = ref(false);
 
