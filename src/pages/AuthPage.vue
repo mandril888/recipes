@@ -5,10 +5,15 @@
       <q-input
         filled
         v-model="name"
-        label="Your name *"
+        label="Your full name *"
         hint="Name and surname"
         lazy-rules
-        :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+        :rules="[
+          (val) => (val && val.length > 0) || 'Please type something',
+          (val) =>
+            (val.split(' ').length > 1 && val.split(' ')[1].length > 1) ||
+            'Enter name and surmane',
+        ]"
       />
 
       <q-input
@@ -30,7 +35,7 @@
       <q-input
         filled
         v-model="date"
-        label="Enter your birthday *"
+        label="Your birthday *"
         mask="date"
         hint="YYYY/MM/DD"
         :rules="['date']"
@@ -55,12 +60,12 @@
       <q-input
         filled
         v-model="password"
-        label="Add strong password *"
+        label="Password *"
         :type="isPwd ? 'password' : 'text'"
         hint="Password"
         lazy-rules
         :rules="[
-          (val) => (val !== null && val !== '') || 'Please type your password',
+          (val) => (val !== null && val !== '') || 'Enter a strong password',
           (val) =>
             val.length > 9 || 'Password should contain at least 10 characters',
           (val) =>
@@ -82,7 +87,7 @@
       <q-input
         filled
         v-model="passwordConfirm"
-        label="Verify password typed *"
+        label="Verify password *"
         :type="isPwd2 ? 'password' : 'text'"
         hint="Password verification"
         lazy-rules
@@ -113,13 +118,18 @@
         />
       </div>
     </q-form>
+    <p></p>
   </q-page>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useQuasar } from "quasar";
+import { storeToRefs } from "pinia";
 import { useUserStore } from "/src/stores/user";
+
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
 
 const $q = useQuasar();
 const name = ref("");
@@ -131,22 +141,22 @@ const passwordConfirm = ref("");
 const isPwd2 = ref(true);
 const accept = ref(false);
 
-function onSubmit() {
+async function onSubmit() {
   if (!accept.value) {
     $q.notify({
-      color: "red-5",
+      color: "red-9",
       textColor: "white",
       icon: "warning",
-      message: "You need to accept the license and terms first",
+      message: "You need to accept the license and terms first 😢",
     });
   } else {
     $q.notify({
       color: "primary",
       textColor: "white",
       icon: "cloud_done",
-      message: "Submitted",
+      message: "Submitted! You will need to verify your email 😃",
     });
-    // await useUserStore.signUp('arturo.rubio.89.8@gmail.com', 'password123')
+    await userStore.signUp(email.value, password.value);
   }
 }
 
