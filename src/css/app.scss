@@ -1,6 +1,15 @@
 // app global css in SCSS form
 
+// basics
+a {
+  color: $primary;
+}
+
 // helpers
 .w-100 {
   width: 100%;
+}
+
+.text-dec-none {
+  text-decoration: none;
 }
