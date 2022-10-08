@@ -45,9 +45,16 @@
             <q-item-section> ToDo </q-item-section>
           </q-item>
 
-          <q-item :to="{ name: 'auth' }" exact clickable v-ripple>
+          <q-item :to="{ name: 'profile' }" exact clickable v-ripple>
             <q-item-section avatar>
               <q-icon name="person" />
+            </q-item-section>
+            <q-item-section> Profile </q-item-section>
+          </q-item>
+
+          <q-item :to="{ name: 'auth' }" exact clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="key" />
             </q-item-section>
             <q-item-section> Auth </q-item-section>
           </q-item>
@@ -78,50 +85,19 @@
 <script setup>
 import { computed, ref } from "vue";
 import { date } from "quasar";
-import EssentialLink from "components/EssentialLink.vue";
-import { onMounted } from "vue";
-import { storeToRefs } from "pinia";
-import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/user.js";
-
-const router = useRouter();
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
-
-onMounted(async () => {
-  console.log("onMounted");
-  try {
-    await userStore.fetchUser(); // here we call fetch user
-    if (!user.value) {
-      console.log("NO login");
-      // redirect them to logout if the user is not there
-      router.push({ path: "/auth" });
-    } else {
-      console.log("YES login");
-      // continue to dashboard
-      router.push({ path: "/" });
-    }
-  } catch (e) {
-    console.log(e);
-  }
-});
 
 const leftDrawerOpen = ref(false);
-
 const timeStamp = Date.now();
 const todaysDate = computed(() => {
   return date.formatDate(timeStamp, "DD MMM");
 });
 </script>
 
-<style lang="scss">
+<style scoped>
 .header-image {
   height: 100%;
   z-index: -1;
   opacity: 0.2;
   filter: grayscale(100%);
-}
-.w-100 {
-  width: 100%;
 }
 </style>

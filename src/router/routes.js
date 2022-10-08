@@ -6,16 +6,33 @@ const routes = [
       {
         path: "",
         name: "home",
+        meta: {
+          requiredAuth: false,
+        },
         component: () => import("pages/IndexPage.vue"),
       },
       {
         path: "/todo",
         name: "todo",
+        meta: {
+          requiredAuth: true,
+        },
         component: () => import("pages/ToDo.vue"),
+      },
+      {
+        path: "/profile",
+        name: "profile",
+        meta: {
+          requiredAuth: true,
+        },
+        component: () => import("pages/MyProfile.vue"),
       },
       {
         path: "/auth",
         name: "auth",
+        meta: {
+          requiredAuth: false,
+        },
         component: () => import("pages/AuthPage.vue"),
       },
     ],
