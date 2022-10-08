@@ -58,7 +58,7 @@ import { useQuasar } from "quasar";
 import { useUserStore } from "/src/stores/user";
 import { useRouter } from "vue-router";
 
-const userStore = useUserStore();
+const $userStore = useUserStore();
 const router = useRouter();
 
 const $q = useQuasar();
@@ -67,7 +67,7 @@ const password = ref("");
 const isPwd = ref(true);
 
 async function onSubmit() {
-  userStore
+  $userStore
     .logIn(email.value, password.value)
     .then(() => {
       $q.notify({

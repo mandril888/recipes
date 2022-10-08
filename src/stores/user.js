@@ -24,7 +24,9 @@ export const useUserStore = defineStore("user", {
     },
     async logOut() {
       console.log("logOut()");
-      // const { error } = await supabase.auth.signOut(); // not working
+      supabase.auth.signOut().catch((err) => {
+        console.log(err);
+      });
       localStorage.removeItem("user");
     },
     async logIn(email, password) {

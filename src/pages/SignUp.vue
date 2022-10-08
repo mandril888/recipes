@@ -116,7 +116,7 @@ import { useQuasar } from "quasar";
 // import { storeToRefs } from "pinia";
 import { useUserStore } from "/src/stores/user";
 
-const userStore = useUserStore();
+const $userStore = useUserStore();
 // const { user } = storeToRefs(userStore);
 
 const $q = useQuasar();
@@ -138,7 +138,7 @@ async function onSubmit() {
       message: "You need to accept the license and terms first 😢",
     });
   } else {
-    await userStore.signUp(email.value, password.value);
+    await $userStore.signUp(email.value, password.value);
     $q.notify({
       color: "primary",
       textColor: "white",
