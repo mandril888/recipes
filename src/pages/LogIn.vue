@@ -76,7 +76,7 @@ async function onSubmit() {
         icon: "cloud_done",
         message: "Logged in! 😃",
       });
-      router.push({ path: "/" });
+      router.push({ name: "home" });
     })
     .catch((err) => {
       $q.notify({

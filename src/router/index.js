@@ -35,7 +35,6 @@ export default route(function (/* { store, ssrContext } */) {
   });
 
   Router.beforeEach(async (to) => {
-    console.log("requiredAuth", to.meta.requiredAuth);
     if (to.meta.requiredAuth) {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user && user.user.aud === "authenticated") return;

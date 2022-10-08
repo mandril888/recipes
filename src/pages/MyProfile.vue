@@ -16,6 +16,6 @@ const router = useRouter();
 
 async function logOut() {
   userStore.logOut();
-  router.push({ path: "/" });
+  router.push({ name: "home" });
 }
 </script>

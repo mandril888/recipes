@@ -113,11 +113,11 @@
 <script setup>
 import { ref } from "vue";
 import { useQuasar } from "quasar";
-// import { storeToRefs } from "pinia";
 import { useUserStore } from "/src/stores/user";
+import { useRouter } from "vue-router";
 
 const $userStore = useUserStore();
-// const { user } = storeToRefs(userStore);
+const router = useRouter();
 
 const $q = useQuasar();
 const name = ref("");
@@ -145,6 +145,7 @@ async function onSubmit() {
       icon: "cloud_done",
       message: "Submitted! You will need to verify your email 😃",
     });
+    router.push({ name: "profile" });
   }
 }
 
