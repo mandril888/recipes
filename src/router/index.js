@@ -34,10 +34,14 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
+  const $userStore = useUserStore();
+
   Router.beforeEach(async (to) => {
     if (to.meta.requiredAuth) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user && user.user.aud === "authenticated") return;
+      const token = JSON.parse(localStorage.getItem("supabase.auth.token"));
+      // console.log("token", token);
+      // console.log("$userStore.user.", $userStore.user);
+      if (token) return;
       return "/auth";
     }
   });

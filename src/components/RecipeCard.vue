@@ -4,6 +4,7 @@
 
     <q-card-section>
       <div class="text-overline text-orange-9">
+        Cat:
         {{ recipe.cuisines.length ? recipe.cuisines.join(", ") : "Not set" }}
       </div>
       <div class="text-h5 q-mt-sm q-mb-xs">{{ recipe.title }}</div>
@@ -13,8 +14,8 @@
     </q-card-section>
 
     <q-card-actions>
-      <q-btn flat color="dark" label="Share" />
-      <q-btn flat color="primary" label="Save" />
+      <q-btn flat round color="primary" icon="share" />
+      <q-btn flat round color="teal" icon="bookmark" @click="addToDo" />
 
       <q-space />
 
@@ -40,28 +41,48 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref } from "vue";
+import { useQuasar } from "quasar";
+import { useUserStore } from "/src/stores/user";
+import { supabase } from "../supabase/supabase";
 
+const $userStore = useUserStore();
+const $q = useQuasar();
 const expanded = ref(false);
 
-defineProps({
+async function addToDo() {
+  console.log("click");
+  const { data, err } = await supabase.from("recipes").insert([
+    {
+      user_id: $userStore.user.id,
+      recipe_id: props.recipe.id,
+    },
+  ]);
+  if (err) throw err;
+  if (data) {
+    $q.notify({
+      color: "primary",
+      textColor: "white",
+      icon: "maps_ugc",
+      message: "Recipe added 😃",
+    });
+  }
+}
+
+const props = defineProps({
   recipe: Object,
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .my-card {
-  width: 100%;
-  max-width: 350px;
-  margin-bottom: 25px;
-
   .text-subitle2 {
     color: #353535;
+  }
 
-    ol {
-      padding-left: 22px;
-      margin: 0;
-    }
+  ol {
+    padding-left: 22px;
+    margin: 0;
   }
 }
 </style>

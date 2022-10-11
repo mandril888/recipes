@@ -130,6 +130,7 @@ const isPwd2 = ref(true);
 const accept = ref(false);
 
 async function onSubmit() {
+  console.log(date.value);
   if (!accept.value) {
     $q.notify({
       color: "red-9",
@@ -138,14 +139,31 @@ async function onSubmit() {
       message: "You need to accept the license and terms first 😢",
     });
   } else {
-    await $userStore.signUp(email.value, password.value);
-    $q.notify({
-      color: "primary",
-      textColor: "white",
-      icon: "cloud_done",
-      message: "Submitted! You will need to verify your email 😃",
-    });
-    router.push({ name: "profile" });
+    $userStore
+      .signUp(
+        email.value,
+        password.value,
+        name.value.split(" ")[0],
+        name.value.split(" ")[1],
+        date.value
+      )
+      .then(() => {
+        $q.notify({
+          color: "primary",
+          textColor: "white",
+          icon: "cloud_done",
+          message: "Submitted! You will need to verify your email 😃",
+        });
+        router.push({ name: "profile" });
+      })
+      .catch((err) => {
+        $q.notify({
+          color: "red-9",
+          textColor: "white",
+          icon: "warning",
+          message: `${err.message} 😢`,
+        });
+      });
   }
 }
 

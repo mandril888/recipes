@@ -17,17 +17,25 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
+import { useQuasar } from "quasar";
 import { useUserStore } from "/src/stores/user";
 import { useRouter } from "vue-router";
 
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
+const $q = useQuasar();
+const $userStore = useUserStore();
+const { user } = storeToRefs($userStore);
 const router = useRouter();
 
 console.log(user);
 
 async function logOut() {
-  userStore.logOut();
+  $userStore.logOut();
+  $q.notify({
+    color: "primary",
+    textColor: "white",
+    icon: "thumbs_up_down",
+    message: "Logged out! See you soon 😃",
+  });
   router.push({ name: "home" });
 }
 </script>

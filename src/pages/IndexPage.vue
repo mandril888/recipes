@@ -5,7 +5,7 @@
     <div v-if="loadingRandom">
       <q-spinner class="flex flex-center" color="primary" size="3em" />
     </div>
-    <div class="row justify-between" v-else>
+    <div class="grid-cards" v-else>
       <RecipeCard
         v-for="(recipe, index) in randomRecipes.list.recipes"
         :key="index"
@@ -43,4 +43,10 @@ async function getRandomRecipes() {
 getRandomRecipes();
 </script>
 
-<style scoped></style>
+<style scoped>
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+</style>
