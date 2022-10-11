@@ -38,21 +38,39 @@
             <q-item-section> Home </q-item-section>
           </q-item>
 
-          <q-item :to="{ name: 'todo' }" exact clickable v-ripple>
+          <q-item
+            v-if="$userStore.user"
+            :to="{ name: 'todo' }"
+            exact
+            clickable
+            v-ripple
+          >
             <q-item-section avatar>
               <q-icon name="style" />
             </q-item-section>
             <q-item-section> ToDo </q-item-section>
           </q-item>
 
-          <q-item :to="{ name: 'profile' }" exact clickable v-ripple>
+          <q-item
+            v-if="$userStore.user"
+            :to="{ name: 'profile' }"
+            exact
+            clickable
+            v-ripple
+          >
             <q-item-section avatar>
               <q-icon name="person" />
             </q-item-section>
             <q-item-section> Profile </q-item-section>
           </q-item>
 
-          <q-item :to="{ name: 'auth' }" exact clickable v-ripple>
+          <q-item
+            v-if="!$userStore.user"
+            :to="{ name: 'auth' }"
+            exact
+            clickable
+            v-ripple
+          >
             <q-item-section avatar>
               <q-icon name="key" />
             </q-item-section>
@@ -62,6 +80,7 @@
       </q-scroll-area>
 
       <q-img
+        v-if="$userStore.user"
         class="absolute-top"
         src="https://cdn.quasar.dev/img/material.png"
         style="height: 150px"
@@ -72,6 +91,18 @@
           </q-avatar>
           <div class="text-weight-bold">Arturo Rubio</div>
           <div>@arubio</div>
+        </div>
+      </q-img>
+      <q-img
+        v-else
+        class="absolute-top"
+        src="https://cdn.quasar.dev/img/material.png"
+        style="height: 150px"
+      >
+        <div class="absolute-bottom bg-transparent">
+          <q-avatar size="56px" class="q-mb-sm">
+            <img src="../statics/avatar.png" />
+          </q-avatar>
         </div>
       </q-img>
     </q-drawer>
@@ -85,12 +116,14 @@
 <script setup>
 import { computed, ref } from "vue";
 import { date } from "quasar";
+import { useUserStore } from "/src/stores/user";
 
 const leftDrawerOpen = ref(false);
 const timeStamp = Date.now();
 const todaysDate = computed(() => {
   return date.formatDate(timeStamp, "DD MMM");
 });
+const $userStore = useUserStore();
 </script>
 
 <style scoped>

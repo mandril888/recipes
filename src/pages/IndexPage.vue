@@ -2,8 +2,8 @@
   <q-page class="q-pa-xl bg-grey-2 column">
     <h4 class="q-mt-none">Recipes search</h4>
     <h4 class="q-mt-none">Random recipes</h4>
-    <div v-if="loadingRandom">
-      <q-spinner class="flex flex-center" color="primary" size="3em" />
+    <div v-if="loadingRandom" class="row justify-center q-ma-xl">
+      <q-spinner class="flex flex-center" color="primary" size="6em" />
     </div>
     <div class="grid-cards" v-else>
       <RecipeCard
@@ -28,13 +28,9 @@ const randomRecipesUrl = `${spoonacularUrl}random/?apiKey=${spoonacularKey}&numb
 async function getRandomRecipes() {
   fetch(randomRecipesUrl)
     .then((res) => {
-      if (res.ok) {
-        console.log("res", res);
-        return res.json();
-      }
+      if (res.ok) return res.json();
     })
     .then((data) => {
-      console.log("data", data);
       loadingRandom.value = false;
       randomRecipes.list = data;
     });

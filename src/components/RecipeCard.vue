@@ -51,7 +51,6 @@ const $q = useQuasar();
 const expanded = ref(false);
 
 async function addToDo() {
-  console.log("click");
   const { data, err } = await supabase.from("recipes").insert([
     {
       user_id: $userStore.user.id,

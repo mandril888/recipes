@@ -130,7 +130,6 @@ const isPwd2 = ref(true);
 const accept = ref(false);
 
 async function onSubmit() {
-  console.log(date.value);
   if (!accept.value) {
     $q.notify({
       color: "red-9",
@@ -145,7 +144,7 @@ async function onSubmit() {
         password.value,
         name.value.split(" ")[0],
         name.value.split(" ")[1],
-        date.value
+        reverseDate(date.value)
       )
       .then(() => {
         $q.notify({
@@ -165,6 +164,10 @@ async function onSubmit() {
         });
       });
   }
+}
+
+function reverseDate(date) {
+  return date.split("/").reverse().join("/");
 }
 
 function onReset() {

@@ -9,16 +9,16 @@ export const useUserStore = defineStore("user", {
     async fetchUser() {
       const user = await supabase.auth.user();
       if (user) this.user = user;
+      this.user = null;
     },
     async signUp(email, password, name, surname, bday) {
       const { user, error } = await supabase.auth.signUp({
         email: email,
         password: password,
-        options: {
-          data: {
-            first_name: name,
-            last_name: surname,
-          },
+        data: {
+          first_name: name,
+          last_name: surname,
+          b_day: bday,
         },
       });
       if (error) throw error;
@@ -29,6 +29,7 @@ export const useUserStore = defineStore("user", {
     async logOut() {
       supabase.auth.signOut();
       localStorage.removeItem("user");
+      this.fetchUser();
     },
     async logIn(email, password) {
       const { user, error } = await supabase.auth.signIn({

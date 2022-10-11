@@ -1,7 +1,10 @@
 <template>
   <q-page class="q-pa-xl bg-grey-2 column">
     <h4 class="q-mt-none">ToDo recipes list</h4>
-    <div class="grid-cards">
+    <div v-if="loading" class="row justify-center q-ma-xl">
+      <q-spinner class="flex flex-center" color="primary" size="6em" />
+    </div>
+    <div v-else class="grid-cards">
       <ToDoCard
         v-for="(recipe, index) in toDoRecipes"
         :key="index"
@@ -18,10 +21,12 @@ import ToDoCard from "src/components/ToDoCard.vue";
 
 const $userStore = useUserStore();
 const toDoRecipes = ref([]);
+const loading = ref(true);
 
-console.log($userStore.user.id);
-
-$userStore.getRecipes().then((data) => (toDoRecipes.value = data));
+$userStore.getRecipes().then((data) => {
+  toDoRecipes.value = data;
+  loading.value = false;
+});
 </script>
 
 <style scoped>
