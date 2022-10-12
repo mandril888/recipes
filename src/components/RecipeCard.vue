@@ -15,7 +15,7 @@
 
     <q-card-actions>
       <q-btn flat round color="primary" icon="share" />
-      <q-btn flat round color="teal" icon="bookmark" @click="addToDo" />
+      <q-btn flat round color="teal" icon="turned_in_not" @click="addToDo" />
 
       <q-space />
 
@@ -54,7 +54,9 @@ async function addToDo() {
   const { data, err } = await supabase.from("recipes").insert([
     {
       user_id: $userStore.user.id,
+      recipe_title: props.recipe.title,
       recipe_id: props.recipe.id,
+      recipe_img: props.recipe.image,
     },
   ]);
   if (err) throw err;

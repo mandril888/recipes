@@ -47,6 +47,14 @@ export const useUserStore = defineStore("user", {
       if (err) throw err;
       if (data) return data;
     },
+    async deleteRecipe(recipeId) {
+      const { error } = await supabase
+        .from("recipes")
+        .delete()
+        .eq("user_id", this.user.id)
+        .eq("recipe_id", recipeId);
+      if (error) throw error;
+    },
   },
   persist: {
     enabled: true,

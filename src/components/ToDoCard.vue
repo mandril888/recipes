@@ -1,9 +1,14 @@
 <template>
   <q-card class="my-card">
-    <img :src="image" />
+    <q-img v-if="recipe.recipe_img" :src="recipe.recipe_img">
+      <div class="absolute-bottom text-subtitle2 text-center">
+        {{ recipe.recipe_title }}
+      </div>
+    </q-img>
+    <img v-else src="../statics/recipe-image.jpg" />
 
     <q-card-actions align="right">
-      <q-btn flat round color="red-9" icon="delete" />
+      <q-btn flat round color="red-9" icon="delete" @click="deleteRecipe" />
       <q-btn flat round color="teal" icon="check_circle" />
       <!-- <q-btn flat round color="teal" icon="unpublished" /> -->
       <q-btn flat round color="primary" icon="share" />
@@ -13,21 +18,26 @@
 
 <script setup>
 import { ref } from "vue";
+import { useQuasar } from "quasar";
+import { useUserStore } from "/src/stores/user";
 
-const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
-const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
-const recipeInfoUrl = `${spoonacularUrl}${props.recipe.id}/information/?apiKey=${spoonacularKey}`;
-let image = ref("");
+const $q = useQuasar();
+const $userStore = useUserStore();
 
-async function getToDoRecipe() {
-  fetch(recipeInfoUrl)
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
-    .then((data) => (image.value = data.image));
+async function deleteRecipe() {
+  $q.dialog({
+    title: "Confirm",
+    message: "Really delete?",
+    cancel: true,
+    persistent: true,
+  }).onOk(() => {
+    $userStore.deleteRecipe(props.recipe.recipe_id);
+    $q.notify({
+      message: "Recipe deleted",
+      color: "primary",
+    });
+  });
 }
-
-getToDoRecipe();
 
 const props = defineProps({
   recipe: Object,
