@@ -36,7 +36,7 @@ async function getRandomRecipes() {
     });
 }
 
-// getRandomRecipes();
+getRandomRecipes();
 </script>
 
 <style scoped>
