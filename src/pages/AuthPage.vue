@@ -6,7 +6,7 @@
     </q-tabs>
 
     <div v-if="tab === 'login'">
-      <LogIn />
+      <SignIn />
     </div>
 
     <div v-else>
@@ -18,7 +18,7 @@
 <script setup>
 import { ref } from "vue";
 import SignUp from "./SignUp.vue";
-import LogIn from "./LogIn.vue";
+import SignIn from "./SignIn.vue";
 import { useQuasar } from "quasar";
 import { useRouter } from "vue-router";
 

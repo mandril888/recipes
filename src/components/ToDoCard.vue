@@ -19,10 +19,10 @@
 <script setup>
 import { ref } from "vue";
 import { useQuasar } from "quasar";
-import { useUserStore } from "/src/stores/user";
+import { useRecipesStore } from "/src/stores/recipes";
 
 const $q = useQuasar();
-const $userStore = useUserStore();
+const $recipesStore = useRecipesStore();
 
 async function deleteRecipe() {
   $q.dialog({
@@ -31,7 +31,7 @@ async function deleteRecipe() {
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    $userStore.deleteRecipe(props.recipe.recipe_id);
+    $recipesStore.deleteRecipe(props.recipe.recipe_id);
     $q.notify({
       message: "Recipe deleted",
       color: "primary",

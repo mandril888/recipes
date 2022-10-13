@@ -1,31 +1,28 @@
 <template>
   <q-page class="q-pa-xl bg-grey-2 column">
     <h4 class="q-mt-none">ToDo recipes list</h4>
-    <div v-if="loading" class="row justify-center q-ma-xl">
-      <q-spinner class="flex flex-center" color="primary" size="6em" />
-    </div>
-    <div v-else class="grid-cards">
+    <div v-if="toDoRecipes" class="grid-cards">
       <ToDoCard
         v-for="(recipe, index) in toDoRecipes"
         :key="index"
         :recipe="recipe"
       />
     </div>
+    <div v-else class="no-tasks absolute-center text-center">
+      <q-icon name="check" size="100px" color="primary" />
+      <div class="text-h5 text-primary text-center">No recipes ToDo</div>
+    </div>
   </q-page>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useUserStore } from "/src/stores/user";
+import { computed, ref } from "vue";
+import { useRecipesStore } from "/src/stores/recipes/";
 import ToDoCard from "src/components/ToDoCard.vue";
 
-const $userStore = useUserStore();
-const toDoRecipes = ref([]);
-const loading = ref(true);
-
-$userStore.getRecipes().then((data) => {
-  toDoRecipes.value = data;
-  loading.value = false;
+const $recipesStore = useRecipesStore();
+const toDoRecipes = computed(() => {
+  return $recipesStore.recipes;
 });
 </script>
 
@@ -34,5 +31,8 @@ $userStore.getRecipes().then((data) => {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
+}
+.no-tasks {
+  opacity: 0.6;
 }
 </style>

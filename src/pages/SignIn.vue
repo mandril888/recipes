@@ -56,9 +56,11 @@
 import { ref } from "vue";
 import { useQuasar } from "quasar";
 import { useUserStore } from "/src/stores/user";
+import { useRecipesStore } from "/src/stores/recipes";
 import { useRouter } from "vue-router";
 
 const $userStore = useUserStore();
+const $recipesStore = useRecipesStore();
 const router = useRouter();
 
 const $q = useQuasar();
@@ -68,7 +70,7 @@ const isPwd = ref(true);
 
 async function onSubmit() {
   $userStore
-    .logIn(email.value, password.value)
+    .signIn(email.value, password.value)
     .then(() => {
       $q.notify({
         color: "primary",
@@ -76,6 +78,7 @@ async function onSubmit() {
         icon: "cloud_done",
         message: "Logged in! 😃",
       });
+      $recipesStore.fetchRecipes($userStore.user.id);
       router.push({ name: "home" });
     })
     .catch((err) => {

@@ -38,10 +38,8 @@ export default route(function (/* { store, ssrContext } */) {
 
   Router.beforeEach(async (to) => {
     if (to.meta.requiredAuth) {
-      const token = JSON.parse(localStorage.getItem("supabase.auth.token"));
-      // console.log("token", token);
-      // console.log("$userStore.user.", $userStore.user);
-      if (token) return;
+      $userStore.fetchUser();
+      if ($userStore.user) return;
       return "/auth";
     }
   });

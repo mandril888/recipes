@@ -8,52 +8,37 @@ export const useUserStore = defineStore("user", {
   actions: {
     async fetchUser() {
       const user = await supabase.auth.user();
-      if (user) this.user = user;
-      this.user = null;
+      this.user = user;
     },
     async signUp(email, password, name, surname, bday) {
-      const { user, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        data: {
-          first_name: name,
-          last_name: surname,
-          b_day: bday,
+      const { user, session, error } = await supabase.auth.signUp(
+        {
+          email: email,
+          password: password,
         },
-      });
+        {
+          data: {
+            first_name: name,
+            last_name: surname,
+            b_day: bday,
+          },
+        }
+      );
       if (error) throw error;
-      if (user) {
-        this.user = user;
-      }
+      if (user) this.user = user;
     },
-    async logOut() {
-      supabase.auth.signOut();
-      localStorage.removeItem("user");
-      this.fetchUser();
+    async signOut() {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      else this.fetchUser();
     },
-    async logIn(email, password) {
+    async signIn(email, password) {
       const { user, error } = await supabase.auth.signIn({
         email: email,
         password: password,
       });
       if (error) throw error;
       if (user) this.user = user;
-    },
-    async getRecipes() {
-      const { data, err } = await supabase
-        .from("recipes")
-        .select()
-        .eq("user_id", this.user.id);
-      if (err) throw err;
-      if (data) return data;
-    },
-    async deleteRecipe(recipeId) {
-      const { error } = await supabase
-        .from("recipes")
-        .delete()
-        .eq("user_id", this.user.id)
-        .eq("recipe_id", recipeId);
-      if (error) throw error;
     },
   },
   persist: {
