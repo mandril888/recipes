@@ -89,8 +89,10 @@
           <q-avatar size="56px" class="q-mb-sm">
             <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
           </q-avatar>
-          <div class="text-weight-bold">Arturo Rubio</div>
-          <div>@arubio</div>
+          <div class="text-weight-bold">
+            {{ user.user_metadata.first_name }}
+            {{ user.user_metadata.last_name }}
+          </div>
         </div>
       </q-img>
       <q-img
@@ -116,6 +118,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { date } from "quasar";
+import { storeToRefs } from "pinia";
 import { useUserStore } from "/src/stores/user";
 
 const leftDrawerOpen = ref(false);
@@ -124,6 +127,7 @@ const todaysDate = computed(() => {
   return date.formatDate(timeStamp, "DD MMM");
 });
 const $userStore = useUserStore();
+const { user } = storeToRefs($userStore);
 const isLogged = computed(() => {
   return $userStore.user;
 });

@@ -8,7 +8,13 @@
     <img v-else src="../statics/recipe-image.jpg" />
 
     <q-card-actions align="right">
-      <q-btn flat round color="red-9" icon="delete" @click="deleteRecipe" />
+      <q-btn
+        flat
+        round
+        color="red-9"
+        icon="delete"
+        @click="deleteRecipe(recipe.recipe_id)"
+      />
       <q-btn flat round color="teal" icon="check_circle" />
       <!-- <q-btn flat round color="teal" icon="unpublished" /> -->
       <q-btn flat round color="primary" icon="share" />
@@ -19,27 +25,36 @@
 <script setup>
 import { ref } from "vue";
 import { useQuasar } from "quasar";
+import { useUserStore } from "/src/stores/user";
 import { useRecipesStore } from "/src/stores/recipes";
 
 const $q = useQuasar();
+const $userStore = useUserStore();
 const $recipesStore = useRecipesStore();
 
-async function deleteRecipe() {
+async function deleteRecipe(recipeId) {
   $q.dialog({
     title: "Confirm",
     message: "Really delete?",
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    $recipesStore.deleteRecipe(props.recipe.recipe_id);
-    $q.notify({
-      message: "Recipe deleted",
-      color: "primary",
+    $recipesStore.deleteRecipe($userStore.user.id, recipeId).then(() => {
+      $recipesStore.recipes.splice(
+        $recipesStore.recipes.findIndex(
+          (recipe) => recipe.recipe_id === recipeId
+        ),
+        1
+      );
+      $q.notify({
+        message: "Recipe deleted",
+        color: "primary",
+      });
     });
   });
 }
 
-const props = defineProps({
+defineProps({
   recipe: Object,
 });
 </script>

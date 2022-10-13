@@ -7,10 +7,16 @@
       </a>
     </div>
     <div>
-      <p>Name:</p>
-      <p>Surname:</p>
-      <p>Bday:</p>
-      <p>Image:</p>
+      <div v-if="user.user_metadata.image"></div>
+      <p>
+        Name: <b>{{ user.user_metadata.first_name }}</b>
+      </p>
+      <p>
+        Surname: <b>{{ user.user_metadata.last_name }}</b>
+      </p>
+      <p>
+        Bday: <b>{{ user.user_metadata.b_day }}</b>
+      </p>
     </div>
   </q-page>
 </template>
@@ -27,8 +33,6 @@ const $userStore = useUserStore();
 const $recipesStore = useRecipesStore();
 const { user } = storeToRefs($userStore);
 const router = useRouter();
-
-console.log(user);
 
 async function signOut() {
   $userStore.signOut();

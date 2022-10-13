@@ -7,20 +7,30 @@ export const useRecipesStore = defineStore("recipes", {
   }),
   actions: {
     async fetchRecipes(userId) {
-      if (!userId) this.recipes = null;
-      const { data, err } = await supabase
+      if (!userId) return (this.recipes = null);
+      const { data, error } = await supabase
         .from("recipes")
         .select()
         .eq("user_id", userId);
-      if (err) throw err;
       if (data) this.recipes = data;
+      if (error) throw error;
     },
-    async deleteRecipe(recipeId) {
-      const { error } = await supabase
+    async addToDoRecipe(userId, recipe) {
+      const { data, error } = await supabase.from("recipes").insert([
+        {
+          user_id: userId,
+          recipe_title: recipe.title,
+          recipe_id: recipe.id,
+          recipe_img: recipe.image,
+        },
+      ]);
+      if (error) throw error;
+    },
+    async deleteRecipe(userId, recipeId) {
+      const { data, error } = await supabase
         .from("recipes")
         .delete()
-        .eq("user_id", this.user.id)
-        .eq("recipe_id", recipeId);
+        .match({ recipe_id: recipeId, user_id: userId });
       if (error) throw error;
     },
   },
