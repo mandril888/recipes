@@ -8,15 +8,17 @@
     <img v-else src="../statics/recipe-image.jpg" />
 
     <q-card-actions align="right">
+      <q-btn flat color="primary" label="View" :href="recipeUrl" />
+      <q-btn flat round color="primary" icon="share" :href="shareUrl" />
+      <q-space />
       <q-btn flat round color="red-9" icon="delete" @click="deleteRecipe" />
       <q-btn
         flat
         round
-        color="teal"
+        color="primary"
         :icon="isDoneRecipe ? 'check_circle' : 'check_circle_outline'"
         @click="doneUndoneTask"
       />
-      <q-btn flat round color="primary" icon="share" />
     </q-card-actions>
   </q-card>
 </template>
@@ -34,6 +36,8 @@ const recipePosition = $recipesStore.recipes.findIndex(
   (recipe) => recipe.recipe_id === props.recipe.recipe_id
 );
 const isDoneRecipe = computed(() => props.recipe.is_complete);
+const recipeUrl = window.location.origin + "/#/recipe/" + props.recipe.id;
+const shareUrl = `whatsapp://send?text=${recipeUrl}`;
 
 async function deleteRecipe() {
   $q.dialog({

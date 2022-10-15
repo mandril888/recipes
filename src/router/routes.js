@@ -35,6 +35,14 @@ const routes = [
         },
         component: () => import("pages/AuthPage.vue"),
       },
+      {
+        path: "/recipe/:id",
+        name: "recipe",
+        meta: {
+          requiredAuth: false,
+        },
+        component: () => import("pages/RecipePage.vue"),
+      },
     ],
   },
 

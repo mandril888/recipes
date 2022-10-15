@@ -1,24 +1,27 @@
 <template>
-  <q-card class="my-card" flat bordered>
-    <q-img :src="recipe.image" />
+  <q-card class="my-card column justify-between" flat bordered>
+    <div>
+      <q-img :src="recipe.image" />
 
-    <q-card-section>
-      <div class="text-overline text-orange-9">
-        Cat:
-        {{ recipe.cuisines.length ? recipe.cuisines.join(", ") : "Not set" }}
-      </div>
-      <div class="text-h5 q-mt-sm q-mb-xs">{{ recipe.title }}</div>
-      <div class="text-caption text-grey-8">
-        <div v-html="recipe.summary"></div>
-      </div>
-    </q-card-section>
+      <q-card-section>
+        <div class="text-overline text-orange-9">
+          Cat:
+          {{ recipe.cuisines.length ? recipe.cuisines.join(", ") : "Not set" }}
+        </div>
+        <div class="text-h5 q-mt-sm q-mb-xs">{{ recipe.title }}</div>
+        <div class="text-caption text-grey-8">
+          <div v-html="recipe.summary"></div>
+        </div>
+      </q-card-section>
+    </div>
 
     <q-card-actions>
-      <q-btn flat round color="primary" icon="share" />
+      <q-btn flat color="primary" label="View" :href="recipeUrl" />
+      <q-btn flat round color="primary" icon="share" :href="shareUrl" />
       <q-btn
         flat
         round
-        color="teal"
+        color="primary"
         icon="turned_in_not"
         @click="addToDoRecipe"
       />
@@ -57,6 +60,8 @@ const $userStore = useUserStore();
 const $recipesStore = useRecipesStore();
 const $q = useQuasar();
 const expanded = ref(false);
+const recipeUrl = window.location.origin + "/#/recipe/" + props.recipe.id;
+const shareUrl = `whatsapp://send?text=${recipeUrl}`;
 
 async function addToDoRecipe() {
   if (!$userStore.user) {

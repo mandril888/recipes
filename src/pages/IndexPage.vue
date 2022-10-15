@@ -25,18 +25,14 @@ const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
 const randomRecipesUrl = `${spoonacularUrl}random/?apiKey=${spoonacularKey}&number=3`;
 
-async function getRandomRecipes() {
-  fetch(randomRecipesUrl)
-    .then((res) => {
-      if (res.ok) return res.json();
-    })
-    .then((data) => {
-      loadingRandom.value = false;
-      randomRecipes.list = data;
-    });
-}
-
-getRandomRecipes();
+fetch(randomRecipesUrl)
+  .then((res) => {
+    if (res.ok) return res.json();
+  })
+  .then((data) => {
+    loadingRandom.value = false;
+    randomRecipes.list = data;
+  });
 </script>
 
 <style scoped>
