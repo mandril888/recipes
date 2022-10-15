@@ -79,7 +79,7 @@ async function onSubmit() {
         message: "Logged in! 😃",
       });
       $recipesStore.fetchRecipes($userStore.user.id);
-      router.push({ name: "home" });
+      router.push({ name: "todo" });
     })
     .catch((err) => {
       $q.notify({

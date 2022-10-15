@@ -8,22 +8,21 @@
     <img v-else src="../statics/recipe-image.jpg" />
 
     <q-card-actions align="right">
+      <q-btn flat round color="red-9" icon="delete" @click="deleteRecipe" />
       <q-btn
         flat
         round
-        color="red-9"
-        icon="delete"
-        @click="deleteRecipe(recipe.recipe_id)"
+        color="teal"
+        :icon="isDoneRecipe ? 'check_circle' : 'check_circle_outline'"
+        @click="doneUndoneTask"
       />
-      <q-btn flat round color="teal" icon="check_circle" />
-      <!-- <q-btn flat round color="teal" icon="unpublished" /> -->
       <q-btn flat round color="primary" icon="share" />
     </q-card-actions>
   </q-card>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useQuasar } from "quasar";
 import { useUserStore } from "/src/stores/user";
 import { useRecipesStore } from "/src/stores/recipes";
@@ -31,30 +30,45 @@ import { useRecipesStore } from "/src/stores/recipes";
 const $q = useQuasar();
 const $userStore = useUserStore();
 const $recipesStore = useRecipesStore();
+const recipePosition = $recipesStore.recipes.findIndex(
+  (recipe) => recipe.recipe_id === props.recipe.recipe_id
+);
+const isDoneRecipe = computed(() => props.recipe.is_complete);
 
-async function deleteRecipe(recipeId) {
+async function deleteRecipe() {
   $q.dialog({
     title: "Confirm",
     message: "Really delete?",
     cancel: true,
     persistent: true,
   }).onOk(() => {
-    $recipesStore.deleteRecipe($userStore.user.id, recipeId).then(() => {
-      $recipesStore.recipes.splice(
-        $recipesStore.recipes.findIndex(
-          (recipe) => recipe.recipe_id === recipeId
-        ),
-        1
-      );
-      $q.notify({
-        message: "Recipe deleted",
-        color: "primary",
+    $recipesStore
+      .deleteRecipe($userStore.user.id, props.recipe.recipe_id)
+      .then(() => {
+        $recipesStore.recipes.splice(recipePosition, 1);
+        $q.notify({
+          message: "Recipe deleted",
+          color: "primary",
+        });
       });
-    });
   });
 }
 
-defineProps({
+function doneUndoneTask() {
+  console.log(isDoneRecipe.value);
+  $recipesStore
+    .doneUndoneTask(
+      $userStore.user.id,
+      props.recipe.recipe_id,
+      !props.recipe.is_complete
+    )
+    .then(() => {
+      $recipesStore.recipes[recipePosition].is_complete =
+        !props.recipe.is_complete;
+    });
+}
+
+const props = defineProps({
   recipe: Object,
 });
 </script>

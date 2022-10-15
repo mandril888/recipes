@@ -39,7 +39,7 @@
           </q-item>
 
           <q-item
-            v-if="isLogged"
+            v-if="$userStore.user"
             :to="{ name: 'todo' }"
             exact
             clickable
@@ -52,7 +52,7 @@
           </q-item>
 
           <q-item
-            v-if="isLogged"
+            v-if="$userStore.user"
             :to="{ name: 'profile' }"
             exact
             clickable
@@ -65,7 +65,7 @@
           </q-item>
 
           <q-item
-            v-if="!isLogged"
+            v-if="!$userStore.user"
             :to="{ name: 'auth' }"
             exact
             clickable
@@ -80,7 +80,7 @@
       </q-scroll-area>
 
       <q-img
-        v-if="isLogged"
+        v-if="$userStore.user"
         class="absolute-top"
         src="https://cdn.quasar.dev/img/material.png"
         style="height: 150px"
@@ -128,9 +128,6 @@ const todaysDate = computed(() => {
 });
 const $userStore = useUserStore();
 const { user } = storeToRefs($userStore);
-const isLogged = computed(() => {
-  return $userStore.user;
-});
 </script>
 
 <style scoped>

@@ -43,7 +43,7 @@ async function signOut() {
     icon: "thumbs_up_down",
     message: "Logged out! See you soon 😃",
   });
-  router.push({ name: "home" });
+  router.push({ name: "auth" });
 }
 </script>
 

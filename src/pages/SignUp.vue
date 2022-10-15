@@ -148,12 +148,13 @@ async function onSubmit() {
       )
       .then(() => {
         $q.notify({
-          color: "primary",
-          textColor: "white",
+          color: "warning",
+          textColor: "dark",
           icon: "cloud_done",
-          message: "Submitted! You will need to verify your email 😃",
+          message: "Submitted! You need to verify your email 😃",
         });
-        router.push({ name: "profile" });
+        $userStore.fetchUser();
+        router.push({ name: "home" });
       })
       .catch((err) => {
         $q.notify({

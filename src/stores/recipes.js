@@ -12,7 +12,7 @@ export const useRecipesStore = defineStore("recipes", {
         .from("recipes")
         .select()
         .eq("user_id", userId);
-      if (data) this.recipes = data;
+      if (data) this.recipes = data.sort((a, b) => a.id - b.id);
       if (error) throw error;
     },
     async addToDoRecipe(userId, recipe) {
@@ -30,7 +30,14 @@ export const useRecipesStore = defineStore("recipes", {
       const { data, error } = await supabase
         .from("recipes")
         .delete()
-        .match({ recipe_id: recipeId, user_id: userId });
+        .match({ user_id: userId, recipe_id: recipeId });
+      if (error) throw error;
+    },
+    async doneUndoneTask(userId, recipeId, isComplete) {
+      const { data, error } = await supabase
+        .from("recipes")
+        .update({ is_complete: isComplete })
+        .match({ user_id: userId, recipe_id: recipeId });
       if (error) throw error;
     },
   },
