@@ -1,11 +1,29 @@
 <template>
   <q-page class="q-pa-xl bg-grey-2 column">
-    <h4 class="q-mt-none">Recipes search</h4>
-    <h4 class="q-mt-none">Random recipes</h4>
+    <h4 class="q-mt-none q-mb-xs">Recipes search</h4>
+
+    <RecipeSearcher @search-done="setupRecipes" />
+
+    <Transition>
+      <div
+        v-if="searchedRecipes.list"
+        class="row justify-between simples-cards"
+      >
+        <SimpleRecipeCard
+          v-for="(recipe, index) in searchedRecipes.list"
+          :key="index"
+          :recipe="recipe"
+        />
+      </div>
+    </Transition>
+
+    <h4>Random recipes</h4>
+
     <div v-if="loadingRandom" class="row justify-center q-ma-xl">
       <q-spinner class="flex flex-center" color="primary" size="6em" />
     </div>
-    <div class="grid-cards" v-else>
+
+    <div class="row justify-between random-cards" v-else>
       <RecipeCard
         v-for="(recipe, index) in randomRecipes.list.recipes"
         :key="index"
@@ -17,13 +35,21 @@
 
 <script setup>
 import { reactive, ref } from "vue";
+import RecipeSearcher from "../components/recipeSearcher.vue";
+import SimpleRecipeCard from "../components/SimpleRecipeCard.vue";
 import RecipeCard from "../components/RecipeCard.vue";
 
 const loadingRandom = ref(true);
+const searchedRecipes = reactive({ list: [] });
 const randomRecipes = reactive({ list: [] });
+
 const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
 const randomRecipesUrl = `${spoonacularUrl}random/?apiKey=${spoonacularKey}&number=3`;
+
+function setupRecipes(data) {
+  searchedRecipes.list = data.results;
+}
 
 fetch(randomRecipesUrl)
   .then((res) => {
@@ -35,10 +61,24 @@ fetch(randomRecipesUrl)
   });
 </script>
 
-<style scoped>
-.grid-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+<style scoped lang="scss">
+.simples-cards,
+.random-cards {
   gap: 20px;
+
+  & > div {
+    max-width: 30%;
+    width: 100%;
+  }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

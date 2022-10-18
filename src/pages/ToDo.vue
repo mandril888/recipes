@@ -8,7 +8,7 @@
         :recipe="recipe"
       />
     </div>
-    <div v-else class="no-tasks absolute-center text-center">
+    <div v-else class="no-recipes absolute-center text-center">
       <q-icon name="check" size="100px" color="primary" />
       <div class="text-h5 text-primary text-center">No recipes ToDo</div>
     </div>
@@ -32,7 +32,7 @@ const toDoRecipes = computed(() => {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
 }
-.no-tasks {
+.no-recipes {
   opacity: 0.6;
 }
 </style>
