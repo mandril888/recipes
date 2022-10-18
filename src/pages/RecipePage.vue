@@ -30,7 +30,7 @@ const loadingRecipeInfo = ref(true);
 const recipeInfo = reactive({ recipe: [] });
 const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
-const recipeInfoUrl = `${spoonacularUrl}/${route.params.id}/information?apiKey=${spoonacularKey}`;
+const recipeInfoUrl = `${spoonacularUrl}recipes/${route.params.id}/information?apiKey=${spoonacularKey}`;
 
 fetch(recipeInfoUrl)
   .then((res) => {

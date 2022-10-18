@@ -1,14 +1,15 @@
 <template>
   <q-page class="q-pa-xl bg-grey-2 column">
-    <h4 class="q-mt-none q-mb-xs">Recipes search</h4>
+    <p v-if="randomFoodJoke" class="joke-text">
+      <b>Food Joke:</b><br />{{ randomFoodJoke }}
+    </p>
+
+    <h4 class="q-mt-lg q-mb-xs text-center">Recipes search</h4>
 
     <RecipeSearcher @search-done="setupRecipes" />
 
     <Transition>
-      <div
-        v-if="searchedRecipes.list"
-        class="row justify-between simples-cards"
-      >
+      <div v-if="searchedRecipes.list" class="row justify-center cards">
         <SimpleRecipeCard
           v-for="(recipe, index) in searchedRecipes.list"
           :key="index"
@@ -17,13 +18,13 @@
       </div>
     </Transition>
 
-    <h4>Random recipes</h4>
+    <h4 class="text-center">Random recipes</h4>
 
     <div v-if="loadingRandom" class="row justify-center q-ma-xl">
       <q-spinner class="flex flex-center" color="primary" size="6em" />
     </div>
 
-    <div class="row justify-between random-cards" v-else>
+    <div class="row justify-center cards" v-else>
       <RecipeCard
         v-for="(recipe, index) in randomRecipes.list.recipes"
         :key="index"
@@ -40,16 +41,26 @@ import SimpleRecipeCard from "../components/SimpleRecipeCard.vue";
 import RecipeCard from "../components/RecipeCard.vue";
 
 const loadingRandom = ref(true);
+const randomFoodJoke = ref("");
 const searchedRecipes = reactive({ list: [] });
 const randomRecipes = reactive({ list: [] });
 
 const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
-const randomRecipesUrl = `${spoonacularUrl}random/?apiKey=${spoonacularKey}&number=3`;
+const randomFoodJokeUrl = `${spoonacularUrl}food/jokes/random/?apiKey=${spoonacularKey}`;
+const randomRecipesUrl = `${spoonacularUrl}recipes/random/?apiKey=${spoonacularKey}&number=3`;
 
 function setupRecipes(data) {
   searchedRecipes.list = data.results;
 }
+
+fetch(randomFoodJokeUrl)
+  .then((res) => {
+    if (res.ok) return res.json();
+  })
+  .then((data) => {
+    randomFoodJoke.value = data.text;
+  });
 
 fetch(randomRecipesUrl)
   .then((res) => {
@@ -62,14 +73,16 @@ fetch(randomRecipesUrl)
 </script>
 
 <style scoped lang="scss">
-.simples-cards,
-.random-cards {
-  gap: 20px;
-
-  & > div {
-    max-width: 30%;
-    width: 100%;
-  }
+.joke-text {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  color: white;
+  background-color: $primary;
+  border-color: #bee5eb;
+  text-align: center;
 }
 
 .v-enter-active,

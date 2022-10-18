@@ -35,7 +35,7 @@ const emit = defineEmits(["searchDone"]);
 
 const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
-const queryRecipesUrl = `${spoonacularUrl}complexSearch/?apiKey=${spoonacularKey}&number=6&query=`;
+const queryRecipesUrl = `${spoonacularUrl}recipes/complexSearch/?apiKey=${spoonacularKey}&number=6&query=`;
 
 watch(search, async (newSearch, oldSearch) => {
   loadingSearch.value = true;
@@ -49,6 +49,9 @@ watch(search, async (newSearch, oldSearch) => {
         loadingSearch.value = false;
         emit("searchDone", data);
       });
+  } else {
+    loadingSearch.value = false;
+    emit("searchDone", null);
   }
 });
 </script>

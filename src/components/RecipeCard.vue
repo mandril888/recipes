@@ -111,7 +111,7 @@ const props = defineProps({
 });
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .my-card {
   .text-subitle2 {
     color: #353535;
@@ -121,5 +121,9 @@ const props = defineProps({
     padding-left: 22px;
     margin: 0;
   }
+}
+
+.text-overline {
+  line-height: 20px;
 }
 </style>

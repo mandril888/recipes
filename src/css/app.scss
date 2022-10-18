@@ -1,4 +1,21 @@
-// app global css in SCSS form
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.q-page-container {
+  background-color: #f5f5f5 !important;
+}
+
+.cards {
+  gap: 25px;
+
+  & > div {
+    max-width: 31%;
+    width: 100%;
+    min-width: 220px;
+  }
+}
 
 // basics
 a {
