@@ -25,6 +25,7 @@ export const useRecipesStore = defineStore("recipes", {
         },
       ]);
       if (error) throw error;
+      if (data) return data;
     },
     async deleteRecipe(userId, recipeId) {
       const { data, error } = await supabase

@@ -22,7 +22,7 @@
         flat
         round
         color="primary"
-        icon="turned_in_not"
+        :icon="recipeSotred ? 'turned_in' : 'turned_in_not'"
         @click="addToDoRecipe"
       />
 
@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useQuasar } from "quasar";
 import { useUserStore } from "/src/stores/user";
 import { useRecipesStore } from "/src/stores/recipes";
@@ -58,6 +58,14 @@ import { supabase } from "../supabase/supabase";
 
 const $userStore = useUserStore();
 const $recipesStore = useRecipesStore();
+const recipesIdList = computed(() =>
+  $recipesStore.recipes.map((recipe) => recipe.recipe_id)
+);
+const recipeSotred = computed(() =>
+  recipesIdList.value.includes(props.recipe.id)
+);
+console.log(recipesIdList.value);
+console.log(props.recipe.id, recipeSotred.value);
 const $q = useQuasar();
 const expanded = ref(false);
 const recipeUrl = window.location.origin + "/#/recipe/" + props.recipe.id;
@@ -72,24 +80,31 @@ async function addToDoRecipe() {
       message: "You need to be logged 😢",
     });
   } else {
-    $recipesStore.addToDoRecipe($userStore.user.id, props.recipe).then(() => {
-      // const id = $recipesStore.recipes.length
-      //   ? $recipesStore.recipes[$recipesStore.recipes.length - 1].id + 1
-      //   : 1;
-      $recipesStore.recipes.push({
-        // id: id,
-        user_id: $userStore.user.id,
-        recipe_title: props.recipe.title,
-        recipe_id: props.recipe.id,
-        recipe_img: props.recipe.image,
+    $recipesStore
+      .addToDoRecipe($userStore.user.id, props.recipe)
+      .then((data) => {
+        $recipesStore.recipes.push({
+          id: data[0].id,
+          user_id: $userStore.user.id,
+          recipe_title: props.recipe.title,
+          recipe_id: props.recipe.id,
+          recipe_img: props.recipe.image,
+        });
+        $q.notify({
+          color: "primary",
+          textColor: "white",
+          icon: "maps_ugc",
+          message: "Recipe added 😃",
+        });
+      })
+      .catch((err) => {
+        $q.notify({
+          color: "red-9",
+          textColor: "white",
+          icon: "warning",
+          message: `${err.message} 😢`,
+        });
       });
-      $q.notify({
-        color: "primary",
-        textColor: "white",
-        icon: "maps_ugc",
-        message: "Recipe added 😃",
-      });
-    });
   }
 }
 

@@ -59,7 +59,6 @@ async function deleteRecipe() {
 }
 
 function doneUndoneTask() {
-  console.log(isDoneRecipe.value);
   $recipesStore
     .doneUndoneTask(
       $userStore.user.id,
@@ -69,6 +68,14 @@ function doneUndoneTask() {
     .then(() => {
       $recipesStore.recipes[recipePosition].is_complete =
         !props.recipe.is_complete;
+    })
+    .catch((err) => {
+      $q.notify({
+        color: "red-9",
+        textColor: "white",
+        icon: "warning",
+        message: `${err.message} 😢`,
+      });
     });
 }
 
