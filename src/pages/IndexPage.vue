@@ -36,7 +36,7 @@
 
 <script setup>
 import { reactive, ref } from "vue";
-import RecipeSearcher from "../components/recipeSearcher.vue";
+import RecipeSearcher from "../components/RecipeSearcher.vue";
 import SimpleRecipeCard from "../components/SimpleRecipeCard.vue";
 import RecipeCard from "../components/RecipeCard.vue";
 
