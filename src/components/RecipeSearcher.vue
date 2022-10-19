@@ -26,8 +26,6 @@
 
 <script setup>
 import { watch, ref } from "vue";
-import RecipeCard from "../components/RecipeCard.vue";
-import RecipeSearcher from "../components/recipeSearcher.vue";
 
 const search = ref("");
 const loadingSearch = ref(false);
