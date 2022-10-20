@@ -35,7 +35,7 @@ const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
 const queryRecipesUrl = `${spoonacularUrl}recipes/complexSearch/?apiKey=${spoonacularKey}&number=6&query=`;
 
-watch(search, async (newSearch, oldSearch) => {
+watch(search, async (newSearch) => {
   loadingSearch.value = true;
 
   if (newSearch.length > 2) {
