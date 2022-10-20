@@ -9,6 +9,14 @@
         <div class="column flex-center items-center">
           <h1>{{ recipeInfo.recipe.title }}</h1>
           <RecipeInfoList :recipe="recipeInfo.recipe" />
+          <div class="row flex-center items-center">
+            <span
+              class="diet"
+              v-for="(diet, index) in recipeInfo.recipe.diets"
+              :key="index"
+              >{{ diet }}</span
+            >
+          </div>
         </div>
       </div>
 
@@ -81,6 +89,8 @@ h4 {
 }
 
 ol {
+  padding-left: 20px;
+
   li {
     &:last-of-type {
       display: none;
@@ -96,5 +106,13 @@ ol {
     border-radius: 3px;
     object-fit: cover;
   }
+}
+
+.diet {
+  background-color: #529dba;
+  color: white;
+  padding: 5px 10px;
+  margin: 2px 10px;
+  border-radius: 20px;
 }
 </style>
