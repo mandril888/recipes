@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-xl bg-grey-2 column">
     <h4 class="q-mt-none">ToDo recipes list</h4>
-    <div v-if="toDoRecipes" class="grid-cards">
+    <div v-if="toDoRecipes" class="row flex-center todo-cards">
       <ToDoCard
         v-for="(recipe, index) in toDoRecipes"
         :key="index"
@@ -26,11 +26,17 @@ const toDoRecipes = computed(() => {
 });
 </script>
 
-<style scoped>
-.grid-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+<style scoped lang="scss">
+.todo-cards {
   gap: 20px;
+  > div {
+    max-width: 225px;
+    width: 100%;
+
+    @media (min-width: 769px) {
+      max-width: 250px;
+    }
+  }
 }
 .no-recipes {
   opacity: 0.6;
