@@ -4,26 +4,51 @@
       <q-spinner class="flex flex-center" color="primary" size="6em" />
     </div>
     <div v-else>
-      <q-img
-        :src="recipeInfo.recipe.image"
-        style="max-width: 100%; height: 400px"
-        fit="cover"
-      >
-        <div class="absolute-bottom text-subtitle1 text-center">
-          {{ recipeInfo.recipe.title }}
+      <div class="row justify-evenly">
+        <img class="dish-img" :src="recipeInfo.recipe.image" />
+        <div class="column flex-center items-center">
+          <h1>{{ recipeInfo.recipe.title }}</h1>
+          <RecipeInfoList :recipe="recipeInfo.recipe" />
         </div>
-      </q-img>
+      </div>
+
+      <div v-if="recipeInfo.recipe.extendedIngredients">
+        <h4>Ingredients</h4>
+        <div class="row flex-center items-stretch gap-20">
+          <IngredientItem
+            v-for="(ingredient, index) in recipeInfo.recipe.extendedIngredients"
+            :key="index"
+            :ingredient="ingredient"
+          />
+        </div>
+      </div>
+
+      <div v-if="recipeInfo.recipe.instructions">
+        <h4>Instructions</h4>
+        <ol>
+          <li
+            class="q-pb-sm"
+            v-for="(text, index) in recipeInfo.recipe.instructions.split('.')"
+            :key="index"
+          >
+            {{ text.replace(/<[^>]*>?/gm, "") }}
+          </li>
+        </ol>
+      </div>
+
+      <div v-if="recipeInfo.recipe.summary">
+        <h4>Summary</h4>
+        <div class="q-mb-lg" v-html="recipeInfo.recipe.summary"></div>
+      </div>
     </div>
-
-    <div class="q-py-lg" v-html="recipeInfo.recipe.summary"></div>
-
-    <div class="q-pb-lg" v-html="recipeInfo.recipe.instructions"></div>
   </q-page>
 </template>
 
 <script setup>
 import { reactive, ref } from "vue";
 import { useRoute } from "vue-router";
+import IngredientItem from "/src/components/IngredientItem.vue";
+import RecipeInfoList from "/src/components/RecipeInfoList.vue";
 
 const route = useRoute();
 const loadingRecipeInfo = ref(true);
@@ -42,3 +67,34 @@ fetch(recipeInfoUrl)
     recipeInfo.recipe = data;
   });
 </script>
+
+<style scoped lang="scss">
+h1 {
+  font-size: 30px;
+  line-height: 38px;
+  font-weight: 500;
+}
+
+h4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+ol {
+  li {
+    &:last-of-type {
+      display: none;
+    }
+  }
+}
+.dish-img {
+  width: 100%;
+
+  @media (min-width: 769px) {
+    width: 40%;
+    height: 250px;
+    border-radius: 3px;
+    object-fit: cover;
+  }
+}
+</style>

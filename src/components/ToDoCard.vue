@@ -39,7 +39,8 @@ const recipePosition = $recipesStore.recipes.findIndex(
   (recipe) => recipe.recipe_id === props.recipe.recipe_id
 );
 const isDoneRecipe = computed(() => props.recipe.is_complete);
-const recipeUrl = window.location.origin + "/#/recipe/" + props.recipe.id;
+const recipeUrl =
+  window.location.origin + "/#/recipe/" + props.recipe.recipe_id;
 const shareUrl = `whatsapp://send?text=${recipeUrl}`;
 
 async function deleteRecipe() {
