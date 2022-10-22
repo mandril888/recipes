@@ -21,6 +21,7 @@ export const useUserStore = defineStore("user", {
             first_name: name,
             last_name: surname,
             b_day: bday,
+            image: false,
           },
         }
       );
@@ -65,12 +66,11 @@ export const useUserStore = defineStore("user", {
       if (error) throw error;
       if (user) this.user = user;
     },
-    async updateAvatar(avatarImg, userId) {
+    async updateAvatar(avatarImg) {
+      console.log(avatarImg);
       const { data, error } = await supabase.storage
         .from("avatar")
-        .upload("public/avatar2.png", avatarImg, {
-          cacheControl: "3600",
-        });
+        .upload("public/" + this.user.id + Date.now() + ".jpg", avatarImg);
       if (error) throw error;
       if (data) return data;
     },

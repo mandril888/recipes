@@ -87,7 +87,14 @@
       >
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
-            <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+            <img
+              v-if="user.user_metadata.image"
+              :src="
+                'https://wgdjvznlohdsepihyodd.supabase.co/storage/v1/object/public/' +
+                user.user_metadata.image
+              "
+            />
+            <img v-else src="https://cdn.quasar.dev/img/boy-avatar.png" />
           </q-avatar>
           <div class="text-weight-bold">
             {{ user.user_metadata.first_name }}
