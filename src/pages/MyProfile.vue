@@ -123,6 +123,12 @@
           >
         </div>
       </div>
+
+      <div class="q-mt-lg">
+        <a @click="this.$router.push({ name: 'reset' })" class="link"
+          >Reset password</a
+        >
+      </div>
     </div>
   </q-page>
 </template>
@@ -140,10 +146,6 @@ const $userStore = useUserStore();
 const $recipesStore = useRecipesStore();
 const { user } = storeToRefs($userStore);
 const router = useRouter();
-
-// const email = ref("");
-// const password = ref("");
-// const isPwd = ref(true);
 const avatarImg = ref("");
 const name = ref($userStore.user.user_metadata.first_name);
 const surname = ref($userStore.user.user_metadata.last_name);
@@ -153,6 +155,7 @@ const img = ref("");
 const editAvatar = ref(false);
 
 async function signOut() {
+  router.push({ name: "auth" });
   $userStore.signOut();
   $recipesStore.fetchRecipes();
   $q.notify({
@@ -161,7 +164,6 @@ async function signOut() {
     icon: "thumbs_up_down",
     message: "Logged out! See you soon 😃",
   });
-  router.push({ name: "auth" });
 }
 
 function updateData() {
@@ -204,7 +206,6 @@ function updateAvatar() {
   $userStore
     .updateAvatar(img.value)
     .then((data) => {
-      console.log(data);
       editAvatar.value = false;
       $q.notify({
         color: "primary",

@@ -47,18 +47,12 @@ export const useUserStore = defineStore("user", {
       );
       if (error) throw error;
     },
-    // async updatePassword(newPassword) {
-    //   const { user, error } = await supabase.auth.update({
-    //     password: newPassword,
-    //   });
-    //   if (error) throw error;
-    // },
-    // async updateMail(newMail) {
-    //   const { user, error } = await supabase.auth.update({
-    //     email: newMail,
-    //   });
-    //   if (error) throw error;
-    // },
+    async updatePassword(newPassword) {
+      const { user, error } = await supabase.auth.update({
+        password: newPassword,
+      });
+      if (error) throw error;
+    },
     async updateData(newData) {
       const { user, error } = await supabase.auth.update({
         data: newData,

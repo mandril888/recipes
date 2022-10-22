@@ -51,25 +51,27 @@ const password = ref("");
 const isPwd = ref(true);
 
 async function onSubmit() {
-  $userStore
-    .updatePassword(password.value)
-    .then(() => {
-      $q.notify({
-        color: "primary",
-        textColor: "white",
-        icon: "cloud_done",
-        message: "Password reset! 😃",
+  if ($userStore) {
+    $userStore
+      .updatePassword(password.value)
+      .then(() => {
+        $q.notify({
+          color: "primary",
+          textColor: "white",
+          icon: "cloud_done",
+          message: "Password reset! 😃",
+        });
+        router.push({ name: "profile" });
+      })
+      .catch((err) => {
+        $q.notify({
+          color: "red-9",
+          textColor: "white",
+          icon: "warning",
+          message: `${err.message} 😢`,
+        });
       });
-      router.push({ name: "reset" });
-    })
-    .catch((err) => {
-      $q.notify({
-        color: "red-9",
-        textColor: "white",
-        icon: "warning",
-        message: `${err.message} 😢`,
-      });
-    });
+  }
 }
 </script>
 
