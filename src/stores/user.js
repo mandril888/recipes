@@ -65,6 +65,15 @@ export const useUserStore = defineStore("user", {
       if (error) throw error;
       if (user) this.user = user;
     },
+    async updateAvatar(avatarImg, userId) {
+      const { data, error } = await supabase.storage
+        .from("avatar")
+        .upload("public/avatar2.png", avatarImg, {
+          cacheControl: "3600",
+        });
+      if (error) throw error;
+      if (data) return data;
+    },
   },
   persist: {
     enabled: true,

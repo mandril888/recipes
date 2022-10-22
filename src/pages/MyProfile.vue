@@ -7,69 +7,114 @@
       </a>
     </div>
     <div>
-      <p>
-        Name: <b>{{ user.user_metadata.first_name }}</b>
-        <q-input
-          v-show="editData"
+      <div class="q-mb-lg">
+        <q-avatar size="56px" class="q-mb-sm">
+          <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+        </q-avatar>
+        <q-file
+          v-show="editAvatar"
+          color="teal"
           filled
-          v-model="name"
-          label="Your name"
-          hint="Name"
-          lazy-rules
-          :rules="[(val) => (val && val.length > 0) || 'Please type something']"
-        />
-      </p>
-      <p>
-        Surname: <b>{{ user.user_metadata.last_name }}</b>
-        <q-input
-          v-show="editData"
-          filled
-          v-model="surname"
-          label="Your surname"
-          hint="Surame"
-          lazy-rules
-          :rules="[(val) => (val && val.length > 0) || 'Please type something']"
-        />
-      </p>
-      <p>
-        Bday: <b>{{ user.user_metadata.b_day }}</b>
-        <q-input
-          v-show="editData"
-          filled
-          v-model="date"
-          label="Your birthday *"
-          mask="date"
-          hint="YYYY/MM/DD"
-          :rules="['date']"
+          v-model="img"
+          label="Avatar image"
         >
-          <template v-slot:append>
-            <q-icon name="event" class="cursor-pointer">
-              <q-popup-proxy
-                cover
-                transition-show="scale"
-                transition-hide="scale"
-              >
-                <q-date v-model="date">
-                  <div class="row items-center justify-end">
-                    <q-btn v-close-popup label="Close" color="primary" flat />
-                  </div>
-                </q-date>
-              </q-popup-proxy>
-            </q-icon>
+          <template v-slot:prepend>
+            <q-icon name="cloud_upload" />
           </template>
-        </q-input>
-      </p>
+        </q-file>
+        <div>
+          <a class="link" v-show="!editAvatar" @click="editAvatar = !editAvatar"
+            >Edit</a
+          >
+          <a
+            class="link inline-blocks"
+            v-show="editAvatar"
+            @click="editAvatar = !editAvatar"
+            >Cancel</a
+          >
+          <a
+            class="link inline-blocks q-ml-lg"
+            v-show="editAvatar"
+            @click="updateAvatar"
+            >Save</a
+          >
+        </div>
+      </div>
+
       <div>
-        <a class="link" v-show="!editData" @click="editDataFn">Edit</a>
-        <a class="link inline-blocks" v-show="editData" @click="editDataFn"
-          >Cancel</a
-        >
-        <a
-          class="link inline-blocks q-ml-lg"
-          v-show="editData"
-          @click="updateData"
-          >Save</a
-        >
+        <p>
+          Name: <b>{{ user.user_metadata.first_name }}</b>
+          <q-input
+            v-show="editData"
+            filled
+            v-model="name"
+            label="Your name"
+            hint="Name"
+            lazy-rules
+            :rules="[
+              (val) => (val && val.length > 0) || 'Please type something',
+            ]"
+          />
+        </p>
+        <p>
+          Surname: <b>{{ user.user_metadata.last_name }}</b>
+          <q-input
+            v-show="editData"
+            filled
+            v-model="surname"
+            label="Your surname"
+            hint="Surame"
+            lazy-rules
+            :rules="[
+              (val) => (val && val.length > 0) || 'Please type something',
+            ]"
+          />
+        </p>
+        <p>
+          Bday: <b>{{ user.user_metadata.b_day }}</b>
+          <q-input
+            v-show="editData"
+            filled
+            v-model="date"
+            label="Your birthday *"
+            mask="date"
+            hint="YYYY/MM/DD"
+            :rules="['date']"
+          >
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date">
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="primary" flat />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </p>
+        <div>
+          <a class="link" v-show="!editData" @click="editData = !editData"
+            >Edit</a
+          >
+          <a
+            class="link inline-blocks"
+            v-show="editData"
+            @click="editData = !editData"
+            >Cancel</a
+          >
+          <a
+            class="link inline-blocks q-ml-lg"
+            v-show="editData"
+            @click="updateData"
+            >Save</a
+          >
+        </div>
       </div>
     </div>
   </q-page>
@@ -97,10 +142,8 @@ const name = ref("");
 const surname = ref("");
 const date = ref("");
 const editData = ref(false);
-
-function editDataFn() {
-  editData.value = !editData.value;
-}
+const img = ref("");
+const editAvatar = ref(false);
 
 async function signOut() {
   editDataFn();
@@ -124,11 +167,35 @@ function updateData() {
   $userStore
     .updateData(data)
     .then(() => {
+      editData.value = false;
       $q.notify({
         color: "primary",
         textColor: "white",
         icon: "cloud_done",
         message: "Update profile!",
+      });
+    })
+    .catch((err) => {
+      $q.notify({
+        color: "red-9",
+        textColor: "white",
+        icon: "warning",
+        message: `${err.message} 😢`,
+      });
+    });
+}
+
+function updateAvatar() {
+  $userStore
+    .updateAvatar(img.value)
+    .then((data) => {
+      console.log(data);
+      editAvatar.value = false;
+      $q.notify({
+        color: "primary",
+        textColor: "white",
+        icon: "cloud_done",
+        message: "Avatar uploaded!",
       });
     })
     .catch((err) => {
