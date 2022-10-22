@@ -43,6 +43,14 @@ const routes = [
         },
         component: () => import("pages/RecipePage.vue"),
       },
+      {
+        path: "/reset-password",
+        name: "reset",
+        meta: {
+          requiredAuth: false,
+        },
+        component: () => import("pages/ResetPassword.vue"),
+      },
     ],
   },
 

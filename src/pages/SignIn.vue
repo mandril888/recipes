@@ -45,6 +45,8 @@
       </template>
     </q-input>
 
+    <a @click="resetPassword" class="link q-mt-lg block">Fotgot password?</a>
+
     <div>
       <q-btn label="Submit" type="submit" color="primary" />
       <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
@@ -67,6 +69,7 @@ const $q = useQuasar();
 const email = ref("");
 const password = ref("");
 const isPwd = ref(true);
+const emailChange = ref("");
 
 async function onSubmit() {
   $userStore
@@ -95,5 +98,35 @@ function onReset() {
   email.value = null;
   password.value = null;
   isPwd.value = true;
+}
+
+function resetPassword() {
+  $q.dialog({
+    title: "Email",
+    message: '<input type="email" class="email-change" style="width:100%" />',
+    html: true,
+  }).onOk(() => {
+    const email = document.querySelector(".email-change").value;
+    $userStore
+      .resetPasswordForEmail(email)
+      .then(() => {
+        $q.notify({
+          color: "primary",
+          textColor: "white",
+          icon: "cloud_done",
+          message: "Email send it!",
+        });
+        $recipesStore.fetchRecipes($userStore.user.id);
+        router.push({ name: "todo" });
+      })
+      .catch((err) => {
+        $q.notify({
+          color: "red-9",
+          textColor: "white",
+          icon: "warning",
+          message: `${err.message} 😢`,
+        });
+      });
+  });
 }
 </script>

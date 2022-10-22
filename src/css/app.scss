@@ -34,3 +34,12 @@ a {
 .gap-20 {
   gap: 20px;
 }
+
+.link {
+  color: $primary;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

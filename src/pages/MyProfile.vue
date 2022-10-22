@@ -7,21 +7,76 @@
       </a>
     </div>
     <div>
-      <div v-if="user.user_metadata.image"></div>
       <p>
         Name: <b>{{ user.user_metadata.first_name }}</b>
+        <q-input
+          v-show="editData"
+          filled
+          v-model="name"
+          label="Your name"
+          hint="Name"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+        />
       </p>
       <p>
         Surname: <b>{{ user.user_metadata.last_name }}</b>
+        <q-input
+          v-show="editData"
+          filled
+          v-model="surname"
+          label="Your surname"
+          hint="Surame"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+        />
       </p>
       <p>
         Bday: <b>{{ user.user_metadata.b_day }}</b>
+        <q-input
+          v-show="editData"
+          filled
+          v-model="date"
+          label="Your birthday *"
+          mask="date"
+          hint="YYYY/MM/DD"
+          :rules="['date']"
+        >
+          <template v-slot:append>
+            <q-icon name="event" class="cursor-pointer">
+              <q-popup-proxy
+                cover
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date v-model="date">
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup label="Close" color="primary" flat />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
       </p>
+      <div>
+        <a class="link" v-show="!editData" @click="editDataFn">Edit</a>
+        <a class="link inline-blocks" v-show="editData" @click="editDataFn"
+          >Cancel</a
+        >
+        <a
+          class="link inline-blocks q-ml-lg"
+          v-show="editData"
+          @click="updateData"
+          >Save</a
+        >
+      </div>
     </div>
   </q-page>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useQuasar } from "quasar";
 import { useUserStore } from "/src/stores/user";
@@ -34,7 +89,21 @@ const $recipesStore = useRecipesStore();
 const { user } = storeToRefs($userStore);
 const router = useRouter();
 
+// const email = ref("");
+// const password = ref("");
+// const isPwd = ref(true);
+const avatarImg = ref("");
+const name = ref("");
+const surname = ref("");
+const date = ref("");
+const editData = ref(false);
+
+function editDataFn() {
+  editData.value = !editData.value;
+}
+
 async function signOut() {
+  editDataFn();
   $userStore.signOut();
   $recipesStore.fetchRecipes();
   $q.notify({
@@ -44,6 +113,36 @@ async function signOut() {
     message: "Logged out! See you soon 😃",
   });
   router.push({ name: "auth" });
+}
+
+function updateData() {
+  const data = {
+    first_name: name.value,
+    last_name: surname.value,
+    b_day: reverseDate(date.value),
+  };
+  $userStore
+    .updateData(data)
+    .then(() => {
+      $q.notify({
+        color: "primary",
+        textColor: "white",
+        icon: "cloud_done",
+        message: "Update profile!",
+      });
+    })
+    .catch((err) => {
+      $q.notify({
+        color: "red-9",
+        textColor: "white",
+        icon: "warning",
+        message: `${err.message} 😢`,
+      });
+    });
+}
+
+function reverseDate(date) {
+  return date.split("/").reverse().join("/");
 }
 </script>
 
