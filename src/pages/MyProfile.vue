@@ -125,7 +125,7 @@
       </div>
 
       <div class="q-mt-lg">
-        <a @click="this.$router.push({ name: 'reset' })" class="link"
+        <a @click="router.push({ name: 'reset' })" class="link"
           >Reset password</a
         >
       </div>
