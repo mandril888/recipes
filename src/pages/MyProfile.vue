@@ -16,7 +16,7 @@
               user.user_metadata.image
             "
           />
-          <img v-else src="../statics/avatar.png" />
+          <img v-else src="https://cdn.quasar.dev/img/boy-avatar.png" />
         </q-avatar>
         <q-file
           v-show="editAvatar"
@@ -149,7 +149,7 @@ const router = useRouter();
 const avatarImg = ref("");
 const name = ref($userStore.user.user_metadata.first_name);
 const surname = ref($userStore.user.user_metadata.last_name);
-const date = ref($userStore.user.user_metadata.b_day);
+const date = ref(reverseDate($userStore.user.user_metadata.b_day));
 const editData = ref(false);
 const img = ref("");
 const editAvatar = ref(false);

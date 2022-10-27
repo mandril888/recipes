@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-xl bg-grey-2 column">
     <h4 class="q-mt-none">ToDo recipes list</h4>
-    <div v-if="toDoRecipes">
+    <div v-if="toDoRecipes.length">
       <q-select
         label="Filter recipes"
         transition-show="jump-up"
