@@ -45,7 +45,7 @@
       </template>
     </q-input>
 
-    <!-- <a @click="resetPassword" class="link q-mt-lg block">Forgot password?</a> -->
+    <a @click="resetPassword" class="link q-mt-lg block">Forgot password?</a>
 
     <div>
       <q-btn label="Submit" type="submit" color="primary" />
@@ -100,31 +100,31 @@ function onReset() {
   isPwd.value = true;
 }
 
-// function resetPassword() {
-//   $q.dialog({
-//     title: "Email",
-//     message: '<input type="email" class="email-change" style="width:100%" />',
-//     html: true,
-//   }).onOk(() => {
-//     const email = document.querySelector(".email-change").value;
-//     $userStore
-//       .resetPasswordForEmail(email)
-//       .then(() => {
-//         $q.notify({
-//           color: "primary",
-//           textColor: "white",
-//           icon: "cloud_done",
-//           message: "Email send it!",
-//         });
-//       })
-//       .catch((err) => {
-//         $q.notify({
-//           color: "red-9",
-//           textColor: "white",
-//           icon: "warning",
-//           message: `${err.message} 😢`,
-//         });
-//       });
-//   });
-// }
+function resetPassword() {
+  $q.dialog({
+    title: "Email",
+    message: '<input type="email" class="email-change" style="width:100%" />',
+    html: true,
+  }).onOk(() => {
+    const email = document.querySelector(".email-change").value;
+    $userStore
+      .resetPasswordForEmail(email)
+      .then(() => {
+        $q.notify({
+          color: "primary",
+          textColor: "white",
+          icon: "cloud_done",
+          message: "Email send it!",
+        });
+      })
+      .catch((err) => {
+        $q.notify({
+          color: "red-9",
+          textColor: "white",
+          icon: "warning",
+          message: `${err.message} 😢`,
+        });
+      });
+  });
+}
 </script>

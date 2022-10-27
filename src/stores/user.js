@@ -52,6 +52,7 @@ export const useUserStore = defineStore("user", {
         password: newPassword,
       });
       if (error) throw error;
+      if (user) this.fetchUser();
     },
     async updateData(newData) {
       const { user, error } = await supabase.auth.update({
@@ -61,7 +62,6 @@ export const useUserStore = defineStore("user", {
       if (user) this.user = user;
     },
     async updateAvatar(avatarImg) {
-      console.log(avatarImg);
       const { data, error } = await supabase.storage
         .from("avatar")
         .upload("public/" + this.user.id + Date.now() + ".jpg", avatarImg);

@@ -39,6 +39,7 @@ import { reactive, ref } from "vue";
 import RecipeSearcher from "../components/RecipeSearcher.vue";
 import SimpleRecipeCard from "../components/SimpleRecipeCard.vue";
 import RecipeCard from "../components/RecipeCard.vue";
+import { useRouter } from "vue-router";
 
 const loadingRandom = ref(true);
 const randomFoodJoke = ref("");
@@ -49,6 +50,13 @@ const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
 const randomFoodJokeUrl = `${spoonacularUrl}food/jokes/random/?apiKey=${spoonacularKey}`;
 const randomRecipesUrl = `${spoonacularUrl}recipes/random/?apiKey=${spoonacularKey}&number=3`;
+
+const router = useRouter();
+const searchParams = new URLSearchParams(window.location.hash);
+if (searchParams.has("type")) {
+  if (searchParams.get("type") === "signup") router.push({ name: "auth" });
+  if (searchParams.get("type") === "recovery") router.push({ name: "reset" });
+}
 
 function setupRecipes(data) {
   searchedRecipes.list = data.results;

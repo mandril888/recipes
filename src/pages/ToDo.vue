@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-xl bg-grey-2 column">
     <h4 class="q-mt-none">ToDo recipes list</h4>
-    <div v-if="toDoRecipes.length">
+    <div v-if="toDoRecipes.recipes && toDoRecipes.recipes.length > 0">
       <q-select
         label="Filter recipes"
         transition-show="jump-up"
@@ -15,7 +15,7 @@
       />
       <div class="row flex-center todo-cards">
         <ToDoCard
-          v-for="(recipe, index) in toDoRecipes"
+          v-for="(recipe, index) in toDoRecipes.recipes"
           :key="index"
           :recipe="recipe"
           v-show="recipe.is_complete.toString().match(filter)"
@@ -36,7 +36,7 @@ import ToDoCard from "src/components/ToDoCard.vue";
 
 const $recipesStore = useRecipesStore();
 const toDoRecipes = computed(() => {
-  return $recipesStore.recipes;
+  return $recipesStore;
 });
 
 const options = ["All", "Done", "Todo"];
