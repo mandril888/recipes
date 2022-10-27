@@ -31,6 +31,14 @@
         :recipe="recipe"
       />
     </div>
+    <div class="q-mt-lg text-center">
+      <q-btn
+        color="primary"
+        icon-right="refresh"
+        label="Refresh random recipes"
+        @click="getandomRecipes"
+      />
+    </div>
   </q-page>
 </template>
 
@@ -70,14 +78,17 @@ fetch(randomFoodJokeUrl)
     randomFoodJoke.value = data.text;
   });
 
-fetch(randomRecipesUrl)
-  .then((res) => {
-    if (res.ok) return res.json();
-  })
-  .then((data) => {
-    loadingRandom.value = false;
-    randomRecipes.list = data;
-  });
+function getandomRecipes() {
+  fetch(randomRecipesUrl)
+    .then((res) => {
+      if (res.ok) return res.json();
+    })
+    .then((data) => {
+      loadingRandom.value = false;
+      randomRecipes.list = data;
+    });
+}
+getandomRecipes();
 </script>
 
 <style scoped lang="scss">

@@ -10,7 +10,7 @@
         </div>
         <div class="text-h5 q-mt-sm q-mb-xs">{{ recipe.title }}</div>
         <div class="text-caption text-grey-8">
-          <div v-html="recipe.summary"></div>
+          <div v-html="recipe.summary.split(' This score is')[0]"></div>
         </div>
       </q-card-section>
     </div>
@@ -42,6 +42,7 @@
       <div v-show="expanded">
         <q-separator />
         <q-card-section class="text-subitle2">
+          <div v-html="recipe.summary.split(' This score is')[0]"></div>
           <div v-html="recipe.instructions"></div>
         </q-card-section>
       </div>
