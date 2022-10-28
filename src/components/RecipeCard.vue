@@ -24,7 +24,6 @@
             "
           ></div>
         </div>
-        {{ recipe.id }}
       </q-card-section>
     </div>
 
