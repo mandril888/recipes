@@ -1,7 +1,9 @@
 <template>
   <q-card class="my-card column justify-between" flat bordered>
     <div>
-      <q-img :src="recipe.image" />
+      <q-img
+        :src="recipe.image ? recipe.image : '/src/statics/recipe-image.jpg'"
+      />
 
       <q-card-section>
         <div class="text-overline text-orange-9">
@@ -10,8 +12,19 @@
         </div>
         <div class="text-h5 q-mt-sm q-mb-xs">{{ recipe.title }}</div>
         <div class="text-caption text-grey-8">
-          <div v-html="recipe.summary.split(' This score is')[0]"></div>
+          <div
+            v-html="
+              recipe.summary
+                .split(' This score is')[0]
+                .split(' Users who liked')[0]
+                .split(' If you like this recipe')[0]
+                .split(' Similar recipes include')[0]
+                .split(' Similar recipes are')[0]
+                .split(' Try')[0]
+            "
+          ></div>
         </div>
+        {{ recipe.id }}
       </q-card-section>
     </div>
 
@@ -42,7 +55,6 @@
       <div v-show="expanded">
         <q-separator />
         <q-card-section class="text-subitle2">
-          <div v-html="recipe.summary.split(' This score is')[0]"></div>
           <div v-html="recipe.instructions"></div>
         </q-card-section>
       </div>
@@ -66,8 +78,10 @@ const recipesIdListStored = computed(() =>
 );
 const $q = useQuasar();
 const expanded = ref(false);
-const recipeUrl = window.location.origin + "/#/recipe/" + props.recipe.id;
-const shareUrl = `whatsapp://send?text=${recipeUrl}`;
+const recipeUrl = computed(
+  () => window.location.origin + "/recipe/" + props.recipe.id
+);
+const shareUrl = computed(() => `whatsapp://send?text=${recipeUrl.value}`);
 
 async function addToDoRecipe() {
   if (!$userStore.user) {
@@ -119,7 +133,7 @@ const props = defineProps({
   }
 
   ol {
-    padding-left: 22px;
+    padding-left: 20px;
     margin: 0;
   }
 }

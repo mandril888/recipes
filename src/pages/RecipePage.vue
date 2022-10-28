@@ -5,7 +5,14 @@
     </div>
     <div v-else>
       <div class="row justify-evenly">
-        <img class="dish-img" :src="recipeInfo.recipe.image" />
+        <img
+          class="dish-img"
+          :src="
+            recipeInfo.recipe.image
+              ? recipeInfo.recipe.image
+              : '/src/statics/recipe-image.jpg'
+          "
+        />
         <div class="column flex-center items-center">
           <h1>{{ recipeInfo.recipe.title }}</h1>
           <RecipeInfoList :recipe="recipeInfo.recipe" />
@@ -33,11 +40,12 @@
 
       <div v-if="recipeInfo.recipe.instructions">
         <h4>Instructions</h4>
-        <ol>
+        <ol class="instructions">
           <li
             class="q-pb-sm"
             v-for="(text, index) in recipeInfo.recipe.instructions.split('.')"
             :key="index"
+            v-show="text.replace(/<[^>]*>?/gm, '')"
           >
             {{ text.replace(/<[^>]*>?/gm, "") }}
           </li>
@@ -46,7 +54,18 @@
 
       <div v-if="recipeInfo.recipe.summary">
         <h4>Summary</h4>
-        <div class="q-mb-lg" v-html="recipeInfo.recipe.summary"></div>
+        <div
+          class="q-mb-lg"
+          v-html="
+            recipeInfo.recipe.summary
+              .split(' This score is')[0]
+              .split(' Users who liked')[0]
+              .split(' If you like this recipe')[0]
+              .split(' Similar recipes include')[0]
+              .split(' Similar recipes are')[0]
+              .split(' Try')[0]
+          "
+        ></div>
       </div>
     </div>
   </q-page>
@@ -85,16 +104,6 @@ h1 {
 h4 {
   margin-bottom: 20px;
   text-align: center;
-}
-
-ol {
-  padding-left: 20px;
-
-  li {
-    &:last-of-type {
-      display: none;
-    }
-  }
 }
 .dish-img {
   width: 100%;

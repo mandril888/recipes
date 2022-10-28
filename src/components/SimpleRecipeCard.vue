@@ -35,7 +35,7 @@ const recipesIdListStored = computed(() =>
     ?.map((recipe) => recipe.recipe_id)
     .includes(props.recipe.id)
 );
-const recipeUrl = window.location.origin + "/#/recipe/" + props.recipe.id;
+const recipeUrl = window.location.origin + "/recipe/" + props.recipe.id;
 const shareUrl = `whatsapp://send?text=${recipeUrl}`;
 
 async function addToDoRecipe() {

@@ -2,7 +2,10 @@
   <div class="row flex-center items-center">
     <img
       :src="
-        'https://spoonacular.com/cdn/ingredients_100x100/' + ingredient.image
+        ingredient.image
+          ? 'https://spoonacular.com/cdn/ingredients_100x100/' +
+            ingredient.image
+          : '/src/statics/ingredient-image.jpg'
       "
     />
     <p>{{ ingredient.original }}</p>
