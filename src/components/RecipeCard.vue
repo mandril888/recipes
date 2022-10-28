@@ -28,7 +28,12 @@
     </div>
 
     <q-card-actions>
-      <q-btn flat color="primary" label="View" :href="recipeUrl" />
+      <q-btn
+        flat
+        color="primary"
+        label="View"
+        :to="'/recipe/' + props.recipe.id"
+      />
       <q-btn flat round color="primary" icon="share" :href="shareUrl" />
       <q-btn
         flat

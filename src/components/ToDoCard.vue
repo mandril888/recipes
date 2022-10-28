@@ -11,7 +11,12 @@
     </q-img>
 
     <q-card-actions align="right">
-      <q-btn flat color="primary" label="View" :href="recipeUrl" />
+      <q-btn
+        flat
+        color="primary"
+        label="Vieww"
+        :to="'/recipe/' + props.recipe.recipe_id"
+      />
       <q-btn flat round color="primary" icon="share" :href="shareUrl" />
       <q-space />
       <q-btn flat round color="red-9" icon="delete" @click="deleteRecipe" />
