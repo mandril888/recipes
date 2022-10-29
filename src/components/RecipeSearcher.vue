@@ -8,13 +8,17 @@
           color="primary"
           label="Advanced search"
           unchecked-icon="clear"
-          @click="cuisine = type = ''"
+          @click="cuisine = type = maxReadyTime = maxCalories = ''"
         />
       </div>
 
       <Transition>
-        <div v-show="advancedSearch" class="row q-gutter-md q-mt-none">
+        <div
+          v-show="advancedSearch"
+          class="row justify-center q-gutter-md q-mt-none bg-grey-1 q-pb-md rounded-borders"
+        >
           <q-select
+            clearable
             v-model="cuisine"
             :options="cuisineOptions"
             label="Cuisine options"
@@ -23,11 +27,24 @@
             style="width: 200px"
           />
           <q-select
+            clearable
             v-model="type"
             :options="typeOptions"
             label="Meal type"
             dense
             options-dense
+            style="width: 200px"
+          />
+          <q-input
+            v-model="maxReadyTime"
+            dense
+            label="Max time"
+            style="width: 200px"
+          />
+          <q-input
+            v-model="maxCalories"
+            dense
+            label="Max calories"
             style="width: 200px"
           />
         </div>
@@ -40,7 +57,7 @@
         filled
         placeholder="Search a recipe"
       >
-        <template v-slot:after>
+        <template v-slot:append>
           <q-btn round dense flat icon="search" @click="searchRecipe" />
         </template>
       </q-input>
@@ -64,8 +81,8 @@ const advancedSearch = ref(false);
 const search = ref("");
 const cuisine = ref("");
 const type = ref("");
-// const maxReadyTime = ref("");
-// const maxCalories = ref("");
+const maxReadyTime = ref("");
+const maxCalories = ref("");
 const cuisineOptions = [
   "African",
   "American",
@@ -114,7 +131,7 @@ const emit = defineEmits(["searchDone"]);
 
 const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
-const queryRecipesUrl = `${spoonacularUrl}recipes/complexSearch/?apiKey=${spoonacularKey}&number=1`;
+const queryRecipesUrl = `${spoonacularUrl}recipes/complexSearch/?apiKey=${spoonacularKey}&number=6`;
 
 watch(search, async (newSearch) => {
   if (newSearch.length > 2) {
@@ -129,6 +146,8 @@ function searchRecipe() {
   if (search.value) query += "&query=" + search.value;
   if (cuisine.value) query += "&cuisine=" + cuisine.value;
   if (type.value) query += "&type=" + type.value;
+  if (maxReadyTime.value) query += "&maxReadyTime=" + maxReadyTime.value;
+  if (maxCalories.value) query += "&maxCalories=" + maxCalories.value;
 
   const newQuery = queryRecipesUrl + query;
 

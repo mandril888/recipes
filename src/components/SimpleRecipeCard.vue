@@ -1,6 +1,13 @@
 <template>
   <q-card class="my-card">
     <q-img :src="recipe.image ? recipe.image : '/src/statics/recipe-image.jpg'">
+      <div
+        v-if="recipe.nutrition"
+        class="absolute-top-right rounded-borders kcal"
+        style="padding: 8px !important"
+      >
+        {{ Math.round(recipe.nutrition.nutrients[0].amount) }} kcal
+      </div>
       <div class="absolute-bottom text-subtitle2 text-center">
         {{ recipe.title }}
       </div>
