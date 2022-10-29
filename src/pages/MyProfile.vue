@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-xl bg-grey-2 column">
+  <q-page class="column">
     <div class="q-mt-none row justify-between items-center w-100">
       <h4 class="q-mt-none">Profile</h4>
       <a class="text-dec-none" href="#" @click.prevent="signOut">

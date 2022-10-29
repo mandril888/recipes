@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-xl bg-grey-2 column">
+  <q-page class="column">
     <h4 class="q-mt-none">Reset password</h4>
 
     <q-form @submit.prevent="onSubmit" class="q-gutter-md">

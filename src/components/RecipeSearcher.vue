@@ -1,13 +1,37 @@
 <template>
   <div class="q-py-md">
     <div class="q-gutter-md">
-      <div style="height: 20px">
-        <Transition>
-          <q-badge v-if="search" color="primary"
-            >Searched: "{{ search }}"</q-badge
-          >
-        </Transition>
+      <div>
+        <q-toggle
+          v-model="advancedSearch"
+          checked-icon="check"
+          color="primary"
+          label="Advanced search"
+          unchecked-icon="clear"
+          @click="cuisine = type = ''"
+        />
       </div>
+
+      <Transition>
+        <div v-show="advancedSearch" class="row q-gutter-md q-mt-none">
+          <q-select
+            v-model="cuisine"
+            :options="cuisineOptions"
+            label="Cuisine options"
+            dense
+            options-dense
+            style="width: 200px"
+          />
+          <q-select
+            v-model="type"
+            :options="typeOptions"
+            label="Meal type"
+            dense
+            options-dense
+            style="width: 200px"
+          />
+        </div>
+      </Transition>
 
       <q-input
         :loading="loadingSearch"
@@ -16,10 +40,18 @@
         filled
         placeholder="Search a recipe"
       >
-        <template v-slot:append>
-          <q-icon name="search" />
+        <template v-slot:after>
+          <q-btn round dense flat icon="search" @click="searchRecipe" />
         </template>
       </q-input>
+
+      <div style="height: 20px">
+        <Transition>
+          <q-badge v-if="search && search.length > 2" color="primary"
+            >Searched: "{{ search }}"</q-badge
+          >
+        </Transition>
+      </div>
     </div>
   </div>
 </template>
@@ -27,31 +59,88 @@
 <script setup>
 import { watch, ref } from "vue";
 
-const search = ref("");
 const loadingSearch = ref(false);
+const advancedSearch = ref(false);
+const search = ref("");
+const cuisine = ref("");
+const type = ref("");
+// const maxReadyTime = ref("");
+// const maxCalories = ref("");
+const cuisineOptions = [
+  "African",
+  "American",
+  "British",
+  "Cajun",
+  "Caribbean",
+  "Chinese",
+  "Eastern European",
+  "European",
+  "French",
+  "German",
+  "Greek",
+  "Indian",
+  "Irish",
+  "Italian",
+  "Japanese",
+  "Jewish",
+  "Korean",
+  "Latin American",
+  "Mediterranean",
+  "Mexican",
+  "Middle Eastern",
+  "Nordic",
+  "Southern",
+  "Spanish",
+  "Thai",
+  "Vietnamese",
+];
+const typeOptions = [
+  "main course",
+  "side dish",
+  "dessert",
+  "appetizer",
+  "salad",
+  "bread",
+  "breakfast",
+  "soup",
+  "beverage",
+  "sauce",
+  "marinade",
+  "fingerfood",
+  "snack",
+  "drink",
+];
 const emit = defineEmits(["searchDone"]);
 
 const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
-const queryRecipesUrl = `${spoonacularUrl}recipes/complexSearch/?apiKey=${spoonacularKey}&number=6&query=`;
+const queryRecipesUrl = `${spoonacularUrl}recipes/complexSearch/?apiKey=${spoonacularKey}&number=1`;
 
 watch(search, async (newSearch) => {
-  loadingSearch.value = true;
-
   if (newSearch.length > 2) {
-    fetch(queryRecipesUrl + newSearch)
-      .then((res) => {
-        if (res.ok) return res.json();
-      })
-      .then((data) => {
-        loadingSearch.value = false;
-        emit("searchDone", data);
-      });
-  } else {
-    loadingSearch.value = false;
-    emit("searchDone", null);
+    searchRecipe();
   }
 });
+
+function searchRecipe() {
+  loadingSearch.value = true;
+  let query = "";
+
+  if (search.value) query += "&query=" + search.value;
+  if (cuisine.value) query += "&cuisine=" + cuisine.value;
+  if (type.value) query += "&type=" + type.value;
+
+  const newQuery = queryRecipesUrl + query;
+
+  fetch(newQuery)
+    .then((res) => {
+      if (res.ok) return res.json();
+    })
+    .then((data) => {
+      loadingSearch.value = false;
+      emit("searchDone", data);
+    });
+}
 </script>
 
 <style scoped>

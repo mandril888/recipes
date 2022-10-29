@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-xl bg-grey-2 column">
+  <q-page class="column">
     <div v-if="loadingRecipeInfo" class="row justify-center q-ma-xl">
       <q-spinner class="flex flex-center" color="primary" size="6em" />
     </div>
@@ -18,10 +18,22 @@
           <RecipeInfoList :recipe="recipeInfo.recipe" />
           <div class="row flex-center items-center">
             <span
-              class="diet"
+              class="tag diet"
               v-for="(diet, index) in recipeInfo.recipe.diets"
               :key="index"
               >{{ diet }}</span
+            >
+            <span
+              class="tag type"
+              v-for="(type, index) in recipeInfo.recipe.dishTypes"
+              :key="index"
+              >{{ type }}</span
+            >
+            <span
+              class="tag cuisine"
+              v-for="(cuisine, index) in recipeInfo.recipe.cuisines"
+              :key="index"
+              >{{ cuisine }}</span
             >
           </div>
         </div>
@@ -89,6 +101,7 @@ fetch(recipeInfoUrl)
     if (res.ok) return res.json();
   })
   .then((data) => {
+    console.log(data);
     loadingRecipeInfo.value = false;
     recipeInfo.recipe = data;
   });
@@ -116,11 +129,19 @@ h4 {
   }
 }
 
-.diet {
-  background-color: #529dba;
+.tag {
   color: white;
   padding: 5px 10px;
   margin: 2px 10px;
   border-radius: 20px;
+}
+.diet {
+  background-color: #529dba;
+}
+.cuisine {
+  background-color: #d2d843;
+}
+.type {
+  background-color: #ac81c2;
 }
 </style>

@@ -17,6 +17,14 @@ main {
   }
 }
 
+.q-page {
+  padding: 20px;
+
+  @media (min-width: 500px) {
+    padding: 48px;
+  }
+}
+
 // basics
 a {
   color: $primary;
@@ -42,4 +50,8 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.clear {
+  clear: both;
 }

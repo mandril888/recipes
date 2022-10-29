@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-xl bg-grey-2 column">
+  <q-page class="column">
     <h4 class="q-mt-none">ToDo recipes list</h4>
     <div v-if="toDoRecipes.recipes && toDoRecipes.recipes.length > 0">
       <q-select
@@ -9,6 +9,7 @@
         rounded
         outlined
         v-model="filterRecipes"
+        dense
         :options="options"
         style="width: 170px"
         class="todo-select"

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-xl bg-grey-2 column">
+  <q-page class="column">
     <q-tabs v-model="tab" class="text-teal">
       <q-tab name="login" icon="login" label="Log in" />
       <q-tab name="signup" icon="person" label="Sign up" />

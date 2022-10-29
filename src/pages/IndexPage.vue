@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-xl bg-grey-2 column">
+  <q-page class="column">
     <p v-if="randomFoodJoke" class="joke-text">
       <b>Food Joke:</b><br />{{ randomFoodJoke }}
     </p>
@@ -8,13 +8,20 @@
 
     <RecipeSearcher @search-done="setupRecipes" />
 
-    <Transition>
-      <div v-if="searchedRecipes.list" class="row justify-center cards">
+    <div v-if="searchedRecipes.list" class="row justify-center cards">
+      <TransitionGroup>
         <SimpleRecipeCard
           v-for="(recipe, index) in searchedRecipes.list"
           :key="index"
           :recipe="recipe"
         />
+      </TransitionGroup>
+    </div>
+    <Transition>
+      <div v-if="noResults">
+        <p class="text-center bg-blue-grey-2 q-pa-sm rounded-borders">
+          Recipes not found... Sorry! 😕
+        </p>
       </div>
     </Transition>
 
@@ -51,6 +58,7 @@ import { useRouter } from "vue-router";
 
 const loadingRandom = ref(true);
 const randomFoodJoke = ref("");
+const noResults = ref(false);
 const searchedRecipes = reactive({ list: [] });
 const randomRecipes = reactive({ list: [] });
 
@@ -67,16 +75,17 @@ if (searchParams.has("type")) {
 }
 
 function setupRecipes(data) {
+  noResults.value = !data.results.length ? true : false;
   searchedRecipes.list = data.results;
 }
 
-fetch(randomFoodJokeUrl)
-  .then((res) => {
-    if (res.ok) return res.json();
-  })
-  .then((data) => {
-    randomFoodJoke.value = data.text;
-  });
+// fetch(randomFoodJokeUrl)
+//   .then((res) => {
+//     if (res.ok) return res.json();
+//   })
+//   .then((data) => {
+//     randomFoodJoke.value = data.text;
+//   });
 
 function getandomRecipes() {
   fetch(randomRecipesUrl)
@@ -88,7 +97,7 @@ function getandomRecipes() {
       randomRecipes.list = data;
     });
 }
-getandomRecipes();
+// getandomRecipes();
 </script>
 
 <style scoped lang="scss">

@@ -14,7 +14,7 @@
       <q-btn
         flat
         color="primary"
-        label="Vieww"
+        label="View"
         :to="'/recipe/' + props.recipe.recipe_id"
       />
       <q-btn flat round color="primary" icon="share" :href="shareUrl" />
