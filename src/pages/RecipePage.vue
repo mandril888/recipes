@@ -101,7 +101,6 @@ fetch(recipeInfoUrl)
     if (res.ok) return res.json();
   })
   .then((data) => {
-    console.log(data);
     loadingRecipeInfo.value = false;
     recipeInfo.recipe = data;
   });
