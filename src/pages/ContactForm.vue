@@ -84,7 +84,7 @@ async function onSubmit() {
     });
   } else {
     const formData = {
-      name: "contact",
+      "form-name": "contact",
       name: name.value,
       email: email.value,
       message: message.value,
@@ -98,7 +98,7 @@ async function onSubmit() {
         onReset();
         $q.notify({
           color: "primary",
-          textColor: "dark",
+          textColor: "white",
           icon: "mark_email_read",
           message: "Submitted! We will contact you soon 😃",
         });
