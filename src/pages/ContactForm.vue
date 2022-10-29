@@ -9,8 +9,12 @@
       method="post"
       class="q-gutter-md"
       data-netlify="true"
+      netlify-honeypot="bot-field"
+      data-netlify-recaptcha="true"
+      ref="contactForm"
     >
       <input type="hidden" name="form-name" value="contact" />
+      <input name="bot-field" hidden />
       <q-input
         filled
         v-model="name"
@@ -42,14 +46,18 @@
       />
 
       <q-input
-        v-model="message"
         filled
+        v-model="message"
+        label="Message *"
         type="textarea"
-        label="Message"
+        hint="Explain us your problem"
+        lazy-rules
         :rules="[(val) => (val && val.length > 0) || 'Please type something']"
       />
 
       <q-toggle v-model="accept" label="I accept the license and terms" />
+
+      <div data-netlify-recaptcha="true"></div>
 
       <div>
         <q-btn label="Submit" type="submit" color="primary" />
@@ -68,12 +76,15 @@
 <script setup>
 import { ref } from "vue";
 import { useQuasar } from "quasar";
+import { useRouter } from "vue-router";
 
 const $q = useQuasar();
 const name = ref("");
 const email = ref("");
 const message = ref("");
 const accept = ref(false);
+const myForm = ref(null);
+const router = useRouter();
 
 async function onSubmit() {
   if (!accept.value) {
@@ -96,13 +107,13 @@ async function onSubmit() {
       body: new URLSearchParams(formData).toString(),
     })
       .then(() => {
-        onReset();
         $q.notify({
           color: "primary",
           textColor: "white",
           icon: "mark_email_read",
           message: "Submitted! We will contact you soon 😃",
         });
+        router.push({ name: "home" });
       })
       .catch((err) => {
         $q.notify({
@@ -119,7 +130,6 @@ function onReset() {
   name.value = null;
   email.value = null;
   message.value = null;
+  accept.value = false;
 }
 </script>
-
-<style scoped lang="scss"></style>
