@@ -89,7 +89,7 @@ async function onSubmit() {
       email: email.value,
       message: message.value,
     };
-    fetch("https://recipes-ari.netlify.app", {
+    fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams(formData).toString(),
