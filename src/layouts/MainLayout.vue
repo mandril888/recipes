@@ -76,6 +76,13 @@
             </q-item-section>
             <q-item-section> Auth </q-item-section>
           </q-item>
+
+          <q-item :to="{ name: 'contact' }" exact clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon name="mail" />
+            </q-item-section>
+            <q-item-section> Contact </q-item-section>
+          </q-item>
         </q-list>
       </q-scroll-area>
 

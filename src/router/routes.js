@@ -51,6 +51,14 @@ const routes = [
         },
         component: () => import("pages/ResetPassword.vue"),
       },
+      {
+        path: "/contact",
+        name: "contact",
+        meta: {
+          requiredAuth: false,
+        },
+        component: () => import("pages/ContactForm.vue"),
+      },
     ],
   },
 
