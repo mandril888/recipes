@@ -8,8 +8,9 @@
       name="contact"
       method="post"
       class="q-gutter-md"
-      netlify
+      data-netlify="true"
     >
+      <input type="hidden" name="form-name" value="contact" />
       <q-input
         filled
         v-model="name"
