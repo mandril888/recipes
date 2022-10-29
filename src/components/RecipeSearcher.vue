@@ -26,6 +26,7 @@
             options-dense
             style="width: 200px"
           />
+
           <q-select
             clearable
             v-model="type"
@@ -35,18 +36,38 @@
             options-dense
             style="width: 200px"
           />
+
           <q-input
             v-model="maxReadyTime"
             dense
             label="Max time"
             style="width: 200px"
-          />
+          >
+            <template v-slot:append>
+              <q-icon
+                v-if="maxReadyTime"
+                name="cancel"
+                @click.stop.prevent="maxReadyTime = null"
+                class="cursor-pointer"
+              />
+            </template>
+          </q-input>
+
           <q-input
             v-model="maxCalories"
             dense
             label="Max calories"
             style="width: 200px"
-          />
+          >
+            <template v-slot:append>
+              <q-icon
+                v-if="maxCalories"
+                name="cancel"
+                @click.stop.prevent="maxCalories = null"
+                class="cursor-pointer"
+              />
+            </template>
+          </q-input>
         </div>
       </Transition>
 
@@ -58,6 +79,12 @@
         placeholder="Search a recipe"
       >
         <template v-slot:append>
+          <q-icon
+            v-if="search"
+            name="cancel"
+            @click.stop.prevent="search = null"
+            class="cursor-pointer"
+          />
           <q-btn round dense flat icon="search" @click="searchRecipe" />
         </template>
       </q-input>
