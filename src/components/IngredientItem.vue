@@ -1,13 +1,12 @@
 <template>
   <div class="row flex-center items-center">
     <img
+      v-if="ingredient.image"
       :src="
-        ingredient.image
-          ? 'https://spoonacular.com/cdn/ingredients_100x100/' +
-            ingredient.image
-          : '../statics/ingredient-image.jpg'
+        'https://spoonacular.com/cdn/ingredients_100x100/' + ingredient.image
       "
     />
+    <img v-else src="../statics/ingredient-image.jpg" />
     <p>{{ ingredient.original }}</p>
   </div>
 </template>
