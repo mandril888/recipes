@@ -2,7 +2,7 @@
   <q-card class="my-card">
     <q-img
       :src="
-        recipe.recipe_img ? recipe.recipe_img : '/src/statics/recipe-image.jpg'
+        recipe.recipe_img ? recipe.recipe_img : '../statics/recipe-image.jpg'
       "
     >
       <div class="absolute-bottom text-subtitle2 text-center">

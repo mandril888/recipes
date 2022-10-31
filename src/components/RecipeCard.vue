@@ -2,7 +2,7 @@
   <q-card class="my-card column justify-between" flat bordered>
     <div>
       <q-img
-        :src="recipe.image ? recipe.image : '/src/statics/recipe-image.jpg'"
+        :src="recipe.image ? recipe.image : '../statics/recipe-image.jpg'"
       />
 
       <q-card-section>

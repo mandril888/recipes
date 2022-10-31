@@ -10,7 +10,7 @@
           :src="
             recipeInfo.recipe.image
               ? recipeInfo.recipe.image
-              : '/src/statics/recipe-image.jpg'
+              : '../statics/recipe-image.jpg'
           "
         />
         <div class="column flex-center items-center">

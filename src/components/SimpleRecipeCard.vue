@@ -1,6 +1,6 @@
 <template>
   <q-card class="my-card">
-    <q-img :src="recipe.image ? recipe.image : '/src/statics/recipe-image.jpg'">
+    <q-img :src="recipe.image ? recipe.image : '../statics/recipe-image.jpg'">
       <div
         v-if="recipe.nutrition"
         class="absolute-top-right rounded-borders kcal"
