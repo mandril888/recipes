@@ -5,14 +5,20 @@
     </div>
     <div v-else>
       <div class="row justify-evenly">
-        <img
+        <!-- <img
           class="dish-img"
           :src="
             recipeInfo.recipe.image
               ? recipeInfo.recipe.image
               : '../statics/recipe-image.jpg'
           "
+        /> -->
+        <img
+          v-if="recipeInfo.recipe.image"
+          class="dish-img"
+          src="recipeInfo.recipe.image"
         />
+        <img v-else class="dish-img" src="../statics/recipe-image.jpg" />
         <div class="column flex-center items-center">
           <h1>{{ recipeInfo.recipe.title }}</h1>
           <RecipeInfoList :recipe="recipeInfo.recipe" />
