@@ -1,7 +1,6 @@
 <template>
   <div class="q-py-md">
     <div class="q-gutter-md">
-      AAA: {{ offset }} BBB: {{ offsetWatch }}
       <div>
         <q-toggle
           v-model="advancedSearch"
