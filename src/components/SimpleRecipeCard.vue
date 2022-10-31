@@ -12,7 +12,7 @@
         {{ recipe.title }}
       </div>
     </q-img>
-    <q-img src="../statics/recipe-image.jpg">
+    <q-img v-else src="../statics/recipe-image.jpg">
       <div
         v-if="recipe.nutrition"
         class="absolute-top-right rounded-borders kcal"

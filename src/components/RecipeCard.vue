@@ -2,7 +2,7 @@
   <q-card class="my-card column justify-between" flat bordered>
     <div>
       <q-img v-if="recipe.image" :src="recipe.image" />
-      <q-img v-esle src="../statics/recipe-image.jpg" />
+      <q-img v-else src="../statics/recipe-image.jpg" />
 
       <q-card-section>
         <div class="text-overline text-orange-9">
