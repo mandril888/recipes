@@ -1,6 +1,7 @@
 <template>
   <div class="q-py-md">
     <div class="q-gutter-md">
+      AAA: {{ offset }} BBB: {{ offsetWatch }}
       <div>
         <q-toggle
           v-model="advancedSearch"
@@ -101,7 +102,7 @@
 </template>
 
 <script setup>
-import { watch, ref } from "vue";
+import { watch, ref, inject, computed } from "vue";
 
 const loadingSearch = ref(false);
 const advancedSearch = ref(false);
@@ -155,15 +156,21 @@ const typeOptions = [
   "drink",
 ];
 const emit = defineEmits(["searchDone"]);
+const offset = inject("offset");
+const offsetWatch = computed(() => offset);
 
 const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
 const queryRecipesUrl = `${spoonacularUrl}recipes/complexSearch/?apiKey=${spoonacularKey}&number=6`;
 
 watch(search, async (newSearch) => {
-  if (newSearch.length > 2) {
+  if (newSearch && newSearch.length > 2) {
     searchRecipe();
   }
+});
+
+watch(offsetWatch.value, async (newOffsetWatch) => {
+  searchRecipe();
 });
 
 function searchRecipe() {
@@ -175,6 +182,7 @@ function searchRecipe() {
   if (type.value) query += "&type=" + type.value;
   if (maxReadyTime.value) query += "&maxReadyTime=" + maxReadyTime.value;
   if (maxCalories.value) query += "&maxCalories=" + maxCalories.value;
+  if (offset) query += "&offset=" + offset.value;
 
   const newQuery = queryRecipesUrl + query;
 

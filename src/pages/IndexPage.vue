@@ -17,6 +17,22 @@
         />
       </TransitionGroup>
     </div>
+
+    <div
+      v-if="
+        searchedRecipes.totalResults - searchedRecipes.list.length - offset > 0
+      "
+    >
+      <div class="q-mt-lg text-center">
+        <q-btn
+          color="primary"
+          icon-right="refresh"
+          label="Load more recipes"
+          @click="loadMoreRecipes"
+        />
+      </div>
+    </div>
+
     <Transition>
       <div v-if="noResults">
         <p class="text-center bg-blue-grey-2 q-pa-sm rounded-borders">
@@ -50,7 +66,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, provide } from "vue";
 import RecipeSearcher from "../components/RecipeSearcher.vue";
 import SimpleRecipeCard from "../components/SimpleRecipeCard.vue";
 import RecipeCard from "../components/RecipeCard.vue";
@@ -59,8 +75,9 @@ import { useRouter } from "vue-router";
 const loadingRandom = ref(true);
 const randomFoodJoke = ref("");
 const noResults = ref(false);
-const searchedRecipes = reactive({ list: [] });
+const searchedRecipes = reactive({ list: [], totalResults: 0 });
 const randomRecipes = reactive({ list: [] });
+const offset = ref(0);
 
 const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
@@ -77,7 +94,16 @@ if (searchParams.has("type")) {
 function setupRecipes(data) {
   noResults.value = !data.results.length ? true : false;
   searchedRecipes.list = data.results;
+  searchedRecipes.totalResults = data.totalResults;
+  offset.value = data.offset;
+  console.log(searchedRecipes);
 }
+
+function loadMoreRecipes() {
+  offset.value += 6;
+}
+
+provide("offset", offset);
 
 fetch(randomFoodJokeUrl)
   .then((res) => {
