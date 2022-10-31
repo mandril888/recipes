@@ -1,9 +1,8 @@
 <template>
   <q-card class="my-card column justify-between" flat bordered>
     <div>
-      <q-img
-        :src="recipe.image ? recipe.image : '../statics/recipe-image.jpg'"
-      />
+      <q-img v-if="recipe.image" :src="recipe.image" />
+      <q-img v-esle src="../statics/recipe-image.jpg" />
 
       <q-card-section>
         <div class="text-overline text-orange-9">

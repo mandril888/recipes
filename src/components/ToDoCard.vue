@@ -1,10 +1,11 @@
 <template>
   <q-card class="my-card">
-    <q-img
-      :src="
-        recipe.recipe_img ? recipe.recipe_img : '../statics/recipe-image.jpg'
-      "
-    >
+    <q-img v-if="recipe.recipe_img" :src="recipe.recipe_img">
+      <div class="absolute-bottom text-subtitle2 text-center">
+        {{ recipe.recipe_title }}
+      </div>
+    </q-img>
+    <q-img v-else src="../statics/recipe-image.jpg">
       <div class="absolute-bottom text-subtitle2 text-center">
         {{ recipe.recipe_title }}
       </div>

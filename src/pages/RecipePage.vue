@@ -10,13 +10,13 @@
           :src="
             recipeInfo.recipe.image
               ? recipeInfo.recipe.image
-              : '../statics/recipe-image.jpg'
+              : '/src/statics/recipe-image.jpg'
           "
         /> -->
         <img
           v-if="recipeInfo.recipe.image"
           class="dish-img"
-          src="recipeInfo.recipe.image"
+          :src="recipeInfo.recipe.image"
         />
         <img v-else class="dish-img" src="../statics/recipe-image.jpg" />
         <div class="column flex-center items-center">
