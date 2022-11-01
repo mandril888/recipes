@@ -1,17 +1,20 @@
 <template>
   <div class="row flex-center items-center">
     <img
-      v-if="ingredient.image"
       :src="
-        'https://spoonacular.com/cdn/ingredients_100x100/' + ingredient.image
+        ingredient.image
+          ? 'https://spoonacular.com/cdn/ingredients_100x100/' +
+            ingredient.image
+          : defaultIngredientImg
       "
     />
-    <img v-else src="../statics/ingredient-image.jpg" />
     <p>{{ ingredient.original }}</p>
   </div>
 </template>
 
 <script setup>
+import defaultIngredientImg from "../statics/ingredient-image.jpg";
+
 defineProps({
   ingredient: Object,
 });
