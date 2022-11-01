@@ -14,17 +14,17 @@
     <q-card-actions align="right">
       <q-btn
         flat
-        color="primary"
+        color="secondary"
         label="View"
         :to="'/recipe/' + props.recipe.recipe_id"
       />
-      <q-btn flat round color="primary" icon="share" :href="shareUrl" />
+      <q-btn flat round color="secondary" icon="share" :href="shareUrl" />
       <q-space />
-      <q-btn flat round color="red-9" icon="delete" @click="deleteRecipe" />
+      <q-btn flat round color="primary" icon="delete" @click="deleteRecipe" />
       <q-btn
         flat
         round
-        color="primary"
+        color="secondary"
         :icon="isDoneRecipe ? 'check_circle' : 'check_circle_outline'"
         @click="doneUndoneTask"
       />

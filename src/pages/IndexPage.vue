@@ -1,10 +1,6 @@
 <template>
   <q-page class="column">
-    <p v-if="randomFoodJoke" class="joke-text">
-      <b>Food Joke:</b><br />{{ randomFoodJoke }}
-    </p>
-
-    <h4 class="q-mt-lg q-mb-xs text-center">Recipes search</h4>
+    <h3 class="q-mt-lg q-mb-xs text-center">Recipes search</h3>
 
     <RecipeSearcher @search-done="setupRecipes" />
 
@@ -41,7 +37,7 @@
       </div>
     </Transition>
 
-    <h4 class="text-center">Random recipes</h4>
+    <h3 class="text-center">Random recipes</h3>
 
     <div v-if="loadingRandom" class="row justify-center q-ma-xl">
       <q-spinner class="flex flex-center" color="primary" size="6em" />
@@ -61,6 +57,11 @@
         label="Refresh random recipes"
         @click="getandomRecipes"
       />
+    </div>
+
+    <div v-if="randomFoodJoke" class="joke-text q-mt-xl">
+      <h3 class="text-center" style="margin: 20px 0">Food Joke</h3>
+      {{ randomFoodJoke }}
     </div>
   </q-page>
 </template>
@@ -128,13 +129,12 @@ getandomRecipes();
 <style scoped lang="scss">
 .joke-text {
   position: relative;
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 1.25rem 1.5rem;
   margin-bottom: 1rem;
   border: 1px solid transparent;
   border-radius: 0.25rem;
-  color: white;
-  background-color: $primary;
-  border-color: #bee5eb;
+  border-color: $primary;
+  background: white;
   text-align: center;
 }
 

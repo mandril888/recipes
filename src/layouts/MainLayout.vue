@@ -10,10 +10,13 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
         <div class="q-px-lg q-my-md row justify-between items-center w-100">
-          <div class="text-h5">Recipes App</div>
-          <div class="text-subtitle1">{{ todaysDate }}</div>
+          <h1 class="text-h4 q-ma-none">
+            <q-item class="text-white q-pl-none" :to="{ name: 'home' }"
+              >Menueat</q-item
+            >
+          </h1>
+          <div class="text-h5 fs-custom">{{ todaysDate }}</div>
         </div>
-        <q-img src="../statics/bg.jpg" class="header-image absolute-top" />
       </q-toolbar>
     </q-header>
 
@@ -88,12 +91,11 @@
 
       <q-img
         v-if="$userStore.user"
-        class="absolute-top"
-        src="https://cdn.quasar.dev/img/material.png"
+        class="absolute-top avatar-block"
         style="height: 150px"
       >
-        <div class="absolute-bottom bg-transparent">
-          <q-avatar size="56px" class="q-mb-sm">
+        <div class="absolute-bottom bg-transparent text-center">
+          <q-avatar size="75px" class="q-mb-sm">
             <img
               v-if="user.user_metadata.image"
               :src="
@@ -109,14 +111,9 @@
           </div>
         </div>
       </q-img>
-      <q-img
-        v-else
-        class="absolute-top"
-        src="https://cdn.quasar.dev/img/material.png"
-        style="height: 150px"
-      >
-        <div class="absolute-bottom bg-transparent">
-          <q-avatar size="56px" class="q-mb-sm">
+      <q-img v-else class="absolute-top avatar-block" style="height: 150px">
+        <div class="absolute-bottom bg-transparent text-center">
+          <q-avatar size="75px" class="q-mb-sm">
             <img src="../statics/avatar.png" />
           </q-avatar>
         </div>
@@ -138,17 +135,14 @@ import { useUserStore } from "/src/stores/user";
 const leftDrawerOpen = ref(false);
 const timeStamp = Date.now();
 const todaysDate = computed(() => {
-  return date.formatDate(timeStamp, "DD MMM");
+  return date.formatDate(timeStamp, "D MMM");
 });
 const $userStore = useUserStore();
 const { user } = storeToRefs($userStore);
 </script>
 
-<style scoped>
-.header-image {
-  height: 100%;
-  z-index: -1;
-  opacity: 0.2;
-  filter: grayscale(100%);
+<style scoped lang="scss">
+.avatar-block {
+  background: $secondary;
 }
 </style>

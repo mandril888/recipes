@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap");
+
 main {
   max-width: 1200px;
   margin: 0 auto;
@@ -13,7 +15,7 @@ main {
   & > div {
     max-width: 31%;
     width: 100%;
-    min-width: 220px;
+    min-width: 174px;
   }
 }
 
@@ -26,6 +28,15 @@ main {
 }
 
 // basics
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Dancing Script", cursive;
+  font-weight: 700 !important;
+}
+
 a {
   color: $primary;
 }
@@ -54,4 +65,9 @@ a {
 
 .clear {
   clear: both;
+}
+
+.fs-custom {
+  font-family: "Dancing Script", cursive;
+  font-weight: 700 !important;
 }

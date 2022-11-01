@@ -29,15 +29,15 @@
     <q-card-actions>
       <q-btn
         flat
-        color="primary"
+        color="secondary"
         label="View"
         :to="'/recipe/' + props.recipe.id"
       />
-      <q-btn flat round color="primary" icon="share" :href="shareUrl" />
+      <q-btn flat round color="secondary" icon="share" :href="shareUrl" />
       <q-btn
         flat
         round
-        color="primary"
+        color="secondary"
         :icon="recipesIdListStored ? 'turned_in' : 'turned_in_not'"
         @click="addToDoRecipe"
       />
