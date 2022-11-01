@@ -108,12 +108,6 @@ fetch(recipeInfoUrl)
 </script>
 
 <style scoped lang="scss">
-// h1 {
-//   font-size: 36px;
-//   line-height: 38px;
-//   font-weight: 500;
-// }
-
 .dish-img {
   width: 100%;
 

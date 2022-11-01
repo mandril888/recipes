@@ -9,7 +9,7 @@
           icon="menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-        <div class="q-px-lg q-my-md row justify-between items-center w-100">
+        <div class="q-pl-lg q-my-md row justify-between items-center w-100">
           <h1 class="text-h4 q-ma-none">
             <q-item
               class="text-white q-pl-none"
@@ -23,9 +23,7 @@
           </h1>
           <div class="text-h5 fs-custom row gap-10">
             {{ todaysDate }}
-            <q-item-section avatar>
-              <img class="logo" alt="Menueat" src="../statics/brocoli.png" />
-            </q-item-section>
+            <img class="logo" alt="Menueat" src="../statics/brocoli.png" />
           </div>
         </div>
       </q-toolbar>
