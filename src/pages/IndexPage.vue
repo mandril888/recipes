@@ -104,13 +104,13 @@ function loadMoreRecipes() {
 
 provide("offset", offset);
 
-// fetch(randomFoodJokeUrl)
-//   .then((res) => {
-//     if (res.ok) return res.json();
-//   })
-//   .then((data) => {
-//     randomFoodJoke.value = data.text;
-//   });
+fetch(randomFoodJokeUrl)
+  .then((res) => {
+    if (res.ok) return res.json();
+  })
+  .then((data) => {
+    randomFoodJoke.value = data.text;
+  });
 
 function getandomRecipes() {
   fetch(randomRecipesUrl)
@@ -122,7 +122,7 @@ function getandomRecipes() {
       randomRecipes.list = data;
     });
 }
-// getandomRecipes();
+getandomRecipes();
 </script>
 
 <style scoped lang="scss">
