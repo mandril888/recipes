@@ -157,6 +157,7 @@ const typeOptions = [
 const emit = defineEmits(["searchDone"]);
 const offset = inject("offset");
 const offsetWatch = computed(() => offset);
+let newQuery = "";
 
 const spoonacularUrl = import.meta.env.VITE_SPOONACULAR_URL;
 const spoonacularKey = import.meta.env.VITE_SPOONACULAR_KEY;
@@ -181,9 +182,11 @@ function searchRecipe() {
   if (type.value) query += "&type=" + type.value;
   if (maxReadyTime.value) query += "&maxReadyTime=" + maxReadyTime.value;
   if (maxCalories.value) query += "&maxCalories=" + maxCalories.value;
-  if (offset) query += "&offset=" + offset.value;
+  if (offset && newQuery.split("&offset=")[0] === queryRecipesUrl + query) {
+    query += "&offset=" + offset.value;
+  }
 
-  const newQuery = queryRecipesUrl + query;
+  newQuery = queryRecipesUrl + query;
 
   fetch(newQuery)
     .then((res) => {
