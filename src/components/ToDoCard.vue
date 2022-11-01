@@ -20,11 +20,11 @@
       />
       <q-btn flat round color="secondary" icon="share" :href="shareUrl" />
       <q-space />
-      <q-btn flat round color="primary" icon="delete" @click="deleteRecipe" />
+      <q-btn flat round color="red-4" icon="delete" @click="deleteRecipe" />
       <q-btn
         flat
         round
-        color="secondary"
+        color="green-4"
         :icon="isDoneRecipe ? 'check_circle' : 'check_circle_outline'"
         @click="doneUndoneTask"
       />

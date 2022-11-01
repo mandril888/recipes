@@ -37,7 +37,7 @@
       <q-btn
         flat
         round
-        color="secondary"
+        color="primary"
         :icon="recipesIdListStored ? 'turned_in' : 'turned_in_not'"
         @click="addToDoRecipe"
       />

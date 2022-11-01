@@ -34,16 +34,16 @@
         :to="'/recipe/' + props.recipe.id"
       />
       <q-btn flat round color="secondary" icon="share" :href="shareUrl" />
-      <q-btn
-        flat
-        round
-        color="secondary"
-        :icon="recipesIdListStored ? 'turned_in' : 'turned_in_not'"
-        @click="addToDoRecipe"
-      />
 
       <q-space />
 
+      <q-btn
+        flat
+        round
+        color="primary"
+        :icon="recipesIdListStored ? 'turned_in' : 'turned_in_not'"
+        @click="addToDoRecipe"
+      />
       <q-btn
         color="grey"
         round

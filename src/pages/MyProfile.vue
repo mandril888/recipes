@@ -1,6 +1,6 @@
 <template>
   <q-page class="column">
-    <div class="q-mt-none row justify-between items-center w-100">
+    <div class="q-mt-none row justify-between w-100">
       <h4 class="q-mt-none">Profile</h4>
       <a class="text-dec-none" href="#" @click.prevent="signOut">
         <q-icon name="logout" /> Log out

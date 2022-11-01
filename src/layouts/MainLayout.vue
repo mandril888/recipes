@@ -19,12 +19,14 @@
               v-ripple
             >
               <q-item-section> Menueat </q-item-section>
-              <q-item-section avatar>
-                <img class="logo" src="../statics/brocoli.png" />
-              </q-item-section>
             </q-item>
           </h1>
-          <div class="text-h5 fs-custom">{{ todaysDate }}</div>
+          <div class="text-h5 fs-custom row gap-10">
+            {{ todaysDate }}
+            <q-item-section avatar>
+              <img class="logo" src="../statics/brocoli.png" />
+            </q-item-section>
+          </div>
         </div>
       </q-toolbar>
     </q-header>
