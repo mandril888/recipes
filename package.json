@@ -2,7 +2,7 @@
   "name": "recipes",
   "version": "0.0.1",
   "description": "A Quasar Project",
-  "productName": "Recipes App",
+  "productName": "Menueat",
   "author": "Arturo Rubio <arturo.rubio.89.8@gmail.com>",
   "private": true,
   "scripts": {

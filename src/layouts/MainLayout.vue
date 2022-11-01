@@ -11,9 +11,18 @@
         />
         <div class="q-px-lg q-my-md row justify-between items-center w-100">
           <h1 class="text-h4 q-ma-none">
-            <q-item class="text-white q-pl-none" :to="{ name: 'home' }"
-              >Menueat</q-item
+            <q-item
+              class="text-white q-pl-none"
+              :to="{ name: 'home' }"
+              exact
+              clickable
+              v-ripple
             >
+              <q-item-section> Menueat </q-item-section>
+              <q-item-section avatar>
+                <img class="logo" src="../statics/brocoli.png" />
+              </q-item-section>
+            </q-item>
           </h1>
           <div class="text-h5 fs-custom">{{ todaysDate }}</div>
         </div>
@@ -144,5 +153,9 @@ const { user } = storeToRefs($userStore);
 <style scoped lang="scss">
 .avatar-block {
   background: $secondary;
+}
+
+.logo {
+  max-width: 35px;
 }
 </style>
