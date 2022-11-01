@@ -24,7 +24,7 @@
           <div class="text-h5 fs-custom row gap-10">
             {{ todaysDate }}
             <q-item-section avatar>
-              <img class="logo" src="../statics/brocoli.png" />
+              <img class="logo" alt="Menueat" src="../statics/brocoli.png" />
             </q-item-section>
           </div>
         </div>
@@ -100,8 +100,10 @@
         </q-list>
       </q-scroll-area>
 
-      <q-img class="absolute-top avatar-block" style="height: 150px">
-        <div class="absolute-bottom bg-transparent text-center">
+      <q-img class="absolute-top bg-secondary" style="height: 150px">
+        <div
+          class="absolute-full bg-transparent column justify-center items-center"
+        >
           <q-avatar size="75px" class="q-mb-sm">
             <img
               v-if="$userStore.user"
@@ -114,7 +116,7 @@
             />
             <img v-else src="../statics/avatar.png" />
           </q-avatar>
-          <div class="text-weight-bold" v-if="$userStore.user">
+          <div v-if="$userStore.user">
             {{ user.user_metadata.first_name }}
             {{ user.user_metadata.last_name }}
           </div>
@@ -144,10 +146,6 @@ const { user } = storeToRefs($userStore);
 </script>
 
 <style scoped lang="scss">
-.avatar-block {
-  background: $secondary;
-}
-
 .logo {
   max-width: 35px;
 }

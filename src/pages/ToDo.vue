@@ -1,6 +1,6 @@
 <template>
   <q-page class="column">
-    <h4 class="q-mt-none">ToDo recipes list</h4>
+    <h3 class="title q-mt-none">ToDo recipes list</h3>
     <div v-if="toDoRecipes.recipes && toDoRecipes.recipes.length > 0">
       <q-select
         label="Filter recipes"
@@ -53,18 +53,18 @@ watch(filterRecipes, (newFilterRecipes) => {
 </script>
 
 <style scoped lang="scss">
-h4 {
-  @media (max-width: 768px) {
+.title {
+  @media (max-width: 850px) {
     text-align: center;
   }
 }
 .todo-select {
   margin: -20px auto 20px;
 
-  @media (min-width: 769px) {
+  @media (min-width: 850px) {
     position: absolute;
-    top: 65px;
-    right: 80px;
+    top: 72px;
+    right: 52px;
   }
 }
 .todo-cards {

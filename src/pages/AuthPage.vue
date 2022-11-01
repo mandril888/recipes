@@ -1,6 +1,6 @@
 <template>
   <q-page class="column">
-    <q-tabs v-model="tab" class="text-teal">
+    <q-tabs v-model="tab" class="text-primary">
       <q-tab name="login" icon="login" label="Log in" />
       <q-tab name="signup" icon="person" label="Sign up" />
     </q-tabs>

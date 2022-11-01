@@ -1,5 +1,5 @@
 <template>
-  <h4 class="q-mt-none">Sign up</h4>
+  <h3 class="text-center q-mt-lg">Sign up</h3>
 
   <q-form @submit.prevent="onSubmit" @reset="onReset" class="q-gutter-md">
     <q-input

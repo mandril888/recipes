@@ -1,6 +1,6 @@
 <template>
   <q-page class="column">
-    <h4 class="q-mt-none">Contact</h4>
+    <h3 class="q-mt-none">Contact</h3>
 
     <q-form
       @submit.prevent="onSubmit"

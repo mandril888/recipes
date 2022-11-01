@@ -1,5 +1,5 @@
 <template>
-  <h4 class="q-mt-none">Log in</h4>
+  <h3 class="text-center q-mt-lg">Log in</h3>
 
   <q-form @submit.prevent="onSubmit" @reset="onReset" class="q-gutter-md">
     <q-input
@@ -45,7 +45,9 @@
       </template>
     </q-input>
 
-    <a @click="resetPassword" class="link q-mt-lg block">Forgot password?</a>
+    <a @click="resetPassword" class="link q-mt-lg block text-secondary"
+      >Forgot password?</a
+    >
 
     <div>
       <q-btn label="Submit" type="submit" color="primary" />
