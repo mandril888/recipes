@@ -12,7 +12,9 @@
           "
         />
         <div class="column flex-center items-center">
-          <h1>{{ recipeInfo.recipe.title }}</h1>
+          <h1 class="q-mx-xs text-center text-h4">
+            {{ recipeInfo.recipe.title }}
+          </h1>
           <RecipeInfoList :recipe="recipeInfo.recipe" />
           <div class="row flex-center items-center">
             <span
@@ -38,7 +40,7 @@
       </div>
 
       <div v-if="recipeInfo.recipe.extendedIngredients">
-        <h4>Ingredients</h4>
+        <h3 class="text-center q-mb-md">Ingredients</h3>
         <div class="row flex-center items-stretch gap-20">
           <IngredientItem
             v-for="(ingredient, index) in recipeInfo.recipe.extendedIngredients"
@@ -49,7 +51,7 @@
       </div>
 
       <div v-if="recipeInfo.recipe.instructions">
-        <h4>Instructions</h4>
+        <h3 class="text-center q-mb-md">Instructions</h3>
         <ol class="instructions">
           <li
             class="q-pb-sm"
@@ -63,7 +65,7 @@
       </div>
 
       <div v-if="recipeInfo.recipe.summary">
-        <h4>Summary</h4>
+        <h3 class="text-center q-mb-md">Summary</h3>
         <div
           class="q-mb-lg"
           v-html="
@@ -106,24 +108,24 @@ fetch(recipeInfoUrl)
 </script>
 
 <style scoped lang="scss">
-h1 {
-  font-size: 30px;
-  line-height: 38px;
-  font-weight: 500;
-}
+// h1 {
+//   font-size: 36px;
+//   line-height: 38px;
+//   font-weight: 500;
+// }
 
-h4 {
-  margin-bottom: 20px;
-  text-align: center;
-}
 .dish-img {
   width: 100%;
 
   @media (min-width: 769px) {
-    width: 40%;
+    width: 60%;
     height: 250px;
     border-radius: 3px;
     object-fit: cover;
+  }
+
+  @media (min-width: 1000px) {
+    width: 40%;
   }
 }
 
