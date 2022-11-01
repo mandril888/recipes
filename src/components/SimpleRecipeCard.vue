@@ -1,18 +1,6 @@
 <template>
   <q-card class="my-card">
-    <q-img v-if="recipe.image" :src="recipe.image">
-      <div
-        v-if="recipe.nutrition"
-        class="absolute-top-right rounded-borders kcal"
-        style="padding: 8px !important"
-      >
-        {{ Math.round(recipe.nutrition.nutrients[0].amount) }} kcal
-      </div>
-      <div class="absolute-bottom text-subtitle2 text-center">
-        {{ recipe.title }}
-      </div>
-    </q-img>
-    <q-img v-else src="../statics/recipe-image.jpg">
+    <q-img :src="recipe.image ? recipe.image : defaultRecipeImg">
       <div
         v-if="recipe.nutrition"
         class="absolute-top-right rounded-borders kcal"
@@ -50,6 +38,7 @@ import { computed, ref } from "vue";
 import { useQuasar } from "quasar";
 import { useUserStore } from "/src/stores/user";
 import { useRecipesStore } from "/src/stores/recipes";
+import defaultRecipeImg from "../statics/recipe-image.jpg";
 
 const $q = useQuasar();
 const $userStore = useUserStore();

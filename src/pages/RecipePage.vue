@@ -6,11 +6,11 @@
     <div v-else>
       <div class="row justify-evenly">
         <img
-          v-if="recipeInfo.recipe.image"
           class="dish-img"
-          :src="recipeInfo.recipe.image"
+          :src="
+            recipeInfo.recipe.img ? recipeInfo.recipe.img : defaultRecipeImg
+          "
         />
-        <img v-else class="dish-img" src="../statics/recipe-image.jpg" />
         <div class="column flex-center items-center">
           <h1>{{ recipeInfo.recipe.title }}</h1>
           <RecipeInfoList :recipe="recipeInfo.recipe" />
@@ -86,6 +86,7 @@ import { reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import IngredientItem from "/src/components/IngredientItem.vue";
 import RecipeInfoList from "/src/components/RecipeInfoList.vue";
+import defaultRecipeImg from "../statics/recipe-image.jpg";
 
 const route = useRoute();
 const loadingRecipeInfo = ref(true);

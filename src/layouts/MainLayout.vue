@@ -100,33 +100,24 @@
         </q-list>
       </q-scroll-area>
 
-      <q-img
-        v-if="$userStore.user"
-        class="absolute-top avatar-block"
-        style="height: 150px"
-      >
+      <q-img class="absolute-top avatar-block" style="height: 150px">
         <div class="absolute-bottom bg-transparent text-center">
           <q-avatar size="75px" class="q-mb-sm">
             <img
-              v-if="user.user_metadata.image"
+              v-if="$userStore.user"
               :src="
-                'https://wgdjvznlohdsepihyodd.supabase.co/storage/v1/object/public/' +
                 user.user_metadata.image
+                  ? 'https://wgdjvznlohdsepihyodd.supabase.co/storage/v1/object/public/' +
+                    user.user_metadata.image
+                  : 'https://cdn.quasar.dev/img/boy-avatar.png'
               "
             />
-            <img v-else src="https://cdn.quasar.dev/img/boy-avatar.png" />
+            <img v-else src="../statics/avatar.png" />
           </q-avatar>
-          <div class="text-weight-bold">
+          <div class="text-weight-bold" v-if="$userStore.user">
             {{ user.user_metadata.first_name }}
             {{ user.user_metadata.last_name }}
           </div>
-        </div>
-      </q-img>
-      <q-img v-else class="absolute-top avatar-block" style="height: 150px">
-        <div class="absolute-bottom bg-transparent text-center">
-          <q-avatar size="75px" class="q-mb-sm">
-            <img src="../statics/avatar.png" />
-          </q-avatar>
         </div>
       </q-img>
     </q-drawer>

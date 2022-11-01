@@ -1,8 +1,7 @@
 <template>
   <q-card class="my-card column justify-between" flat bordered>
     <div>
-      <q-img v-if="recipe.image" :src="recipe.image" />
-      <q-img v-else src="../statics/recipe-image.jpg" />
+      <q-img :src="recipe.image ? recipe.image : defaultRecipeImg" />
 
       <q-card-section>
         <div class="text-overline text-orange-9">
@@ -71,6 +70,7 @@ import { useQuasar } from "quasar";
 import { useUserStore } from "/src/stores/user";
 import { useRecipesStore } from "/src/stores/recipes";
 import { supabase } from "../supabase/supabase";
+import defaultRecipeImg from "../statics/recipe-image.jpg";
 
 const $userStore = useUserStore();
 const $recipesStore = useRecipesStore();

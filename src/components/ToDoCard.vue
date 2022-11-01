@@ -1,11 +1,6 @@
 <template>
   <q-card class="my-card">
-    <q-img v-if="recipe.recipe_img" :src="recipe.recipe_img">
-      <div class="absolute-bottom text-subtitle2 text-center">
-        {{ recipe.recipe_title }}
-      </div>
-    </q-img>
-    <q-img v-else src="../statics/recipe-image.jpg">
+    <q-img :src="recipe.recipe_img ? recipe.recipe_img : defaultRecipeImg">
       <div class="absolute-bottom text-subtitle2 text-center">
         {{ recipe.recipe_title }}
       </div>
@@ -37,6 +32,7 @@ import { computed, ref } from "vue";
 import { useQuasar } from "quasar";
 import { useUserStore } from "/src/stores/user";
 import { useRecipesStore } from "/src/stores/recipes";
+import defaultRecipeImg from "../statics/recipe-image.jpg";
 
 const $q = useQuasar();
 const $userStore = useUserStore();
