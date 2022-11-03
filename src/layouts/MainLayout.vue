@@ -138,6 +138,7 @@
 
     <q-page-container>
       <router-view />
+      <CookieBanner />
     </q-page-container>
   </q-layout>
 </template>
@@ -147,6 +148,7 @@ import { computed, ref } from "vue";
 import { date } from "quasar";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "/src/stores/user";
+import CookieBanner from "../components/CookieBanner.vue";
 
 const leftDrawerOpen = ref(false);
 const timeStamp = Date.now();
