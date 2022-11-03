@@ -9,7 +9,7 @@
           icon="menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-        <div class="q-pl-lg q-my-md row justify-between items-center w-100">
+        <div class="q-pl-lg q-my-sm row justify-between items-center w-100">
           <h1 class="text-h4 q-ma-none">
             <q-item
               class="text-white q-pl-none"
@@ -21,9 +21,8 @@
               <q-item-section> Menueat </q-item-section>
             </q-item>
           </h1>
-          <div class="text-h5 fs-custom row gap-10">
-            {{ todaysDate }}
-            <img class="logo" alt="Menueat" src="../statics/brocoli.png" />
+          <div class="logo-container text-h5 fs-custom row gap-10">
+            <img alt="Menueat" src="../statics/brocoli.png" />
           </div>
         </div>
       </q-toolbar>
@@ -96,6 +95,12 @@
             <q-item-section> Contact </q-item-section>
           </q-item>
         </q-list>
+
+        <div
+          class="absolute-bottom text-center fs-custom q-mb-md text-secondary text-h6"
+        >
+          <p>{{ todaysDate }}</p>
+        </div>
       </q-scroll-area>
 
       <q-img class="absolute-top bg-secondary" style="height: 150px">
@@ -117,6 +122,15 @@
           <div v-if="$userStore.user">
             {{ user.user_metadata.first_name }}
             {{ user.user_metadata.last_name }}
+          </div>
+          <div v-else>
+            <q-btn
+              flat
+              round
+              color="white"
+              label="Log in"
+              :to="{ name: 'auth' }"
+            />
           </div>
         </div>
       </q-img>
@@ -144,7 +158,14 @@ const { user } = storeToRefs($userStore);
 </script>
 
 <style scoped lang="scss">
-.logo {
-  max-width: 35px;
+.logo-container {
+  border: 1px solid;
+  border-radius: 50%;
+  padding: 6px;
+  background: #f5ca24;
+
+  img {
+    max-width: 35px;
+  }
 }
 </style>

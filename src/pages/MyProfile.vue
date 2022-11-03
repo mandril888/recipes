@@ -20,7 +20,7 @@
         </q-avatar>
         <q-file
           v-show="editAvatar"
-          color="teal"
+          color="primary"
           filled
           v-model="img"
           label="Avatar image"
