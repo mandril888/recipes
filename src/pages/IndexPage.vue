@@ -59,9 +59,9 @@
       />
     </div>
 
-    <div v-if="randomFoodJoke" class="joke-text q-mt-xl">
+    <div v-if="randomFoodJoke" class="highlight-text q-mt-xl">
       <h3 class="text-center" style="margin: 20px 0">Food Joke</h3>
-      {{ randomFoodJoke }}
+      <p>{{ randomFoodJoke }}</p>
     </div>
   </q-page>
 </template>
@@ -101,6 +101,7 @@ function setupRecipes(data) {
 
 function loadMoreRecipes() {
   offset.value += 6;
+  window.scrollTo({ top: 200, behavior: "smooth" });
 }
 
 provide("offset", offset);
@@ -127,17 +128,6 @@ getandomRecipes();
 </script>
 
 <style scoped lang="scss">
-.joke-text {
-  position: relative;
-  padding: 0.75rem 1.25rem 1.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  border-color: $primary;
-  background: white;
-  text-align: center;
-}
-
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;

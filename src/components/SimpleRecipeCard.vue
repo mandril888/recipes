@@ -93,3 +93,11 @@ const props = defineProps({
   recipe: Object,
 });
 </script>
+
+<style scoped lang="scss">
+.my-card {
+  @media (max-width: 420px) {
+    min-width: 100%;
+  }
+}
+</style>

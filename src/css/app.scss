@@ -80,6 +80,16 @@ a {
   font-weight: 700 !important;
 }
 
+.highlight-text {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  border-color: $primary;
+  background: white;
+  text-align: center;
+}
+
 // modifications
 .q-avatar__content {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;

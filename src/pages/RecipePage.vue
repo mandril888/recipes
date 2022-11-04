@@ -4,18 +4,22 @@
       <q-spinner class="flex flex-center" color="primary" size="6em" />
     </div>
     <div v-else>
-      <div class="row justify-evenly">
+      <div class="text-center">
         <img
           class="dish-img"
           :src="
-            recipeInfo.recipe.img ? recipeInfo.recipe.img : defaultRecipeImg
+            recipeInfo.recipe.image ? recipeInfo.recipe.image : defaultRecipeImg
           "
         />
+
         <div class="column flex-center items-center">
-          <h1 class="q-mx-xs text-center text-h4">
+          <h1 class="q-mx-xs text-center text-h3">
             {{ recipeInfo.recipe.title }}
           </h1>
-          <RecipeInfoList :recipe="recipeInfo.recipe" />
+          <RecipeInfoList
+            class="highlight-text q-mb-lg"
+            :recipe="recipeInfo.recipe"
+          />
           <div class="row flex-center items-center">
             <span
               class="tag diet"
@@ -52,7 +56,7 @@
 
       <div v-if="recipeInfo.recipe.instructions">
         <h3 class="text-center q-mb-md">Instructions</h3>
-        <ol class="instructions">
+        <ol class="q-pl-lg">
           <li
             class="q-pb-sm"
             v-for="(text, index) in recipeInfo.recipe.instructions.split('.')"

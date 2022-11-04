@@ -88,3 +88,18 @@ const props = defineProps({
   recipe: Object,
 });
 </script>
+
+<style scoped lang="scss">
+.q-card__actions {
+  @media (min-width: 420px) and (max-width: 540px) {
+    padding: 0;
+  }
+
+  .q-btn:not(:first-child) {
+    @media (min-width: 420px) and (max-width: 540px) {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+</style>

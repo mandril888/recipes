@@ -69,15 +69,25 @@ watch(filterRecipes, (newFilterRecipes) => {
 }
 .todo-cards {
   gap: 20px;
+
+  @media (max-width: 540px) {
+    gap: 15px;
+  }
+
   > div {
-    max-width: 225px;
+    max-width: 100%;
     width: 100%;
+
+    @media (min-width: 420px) {
+      max-width: 47%;
+    }
 
     @media (min-width: 769px) {
       max-width: 250px;
     }
   }
 }
+
 .no-recipes {
   opacity: 0.6;
 }
