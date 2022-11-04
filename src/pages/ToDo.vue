@@ -70,13 +70,9 @@ watch(filterRecipes, (newFilterRecipes) => {
 .todo-cards {
   gap: 20px;
 
-  @media (max-width: 540px) {
-    gap: 15px;
-  }
-
   > div {
     max-width: 100%;
-    width: 100%;
+    width: 90%;
 
     @media (min-width: 420px) {
       max-width: 47%;

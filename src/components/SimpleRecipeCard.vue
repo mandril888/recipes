@@ -97,7 +97,7 @@ const props = defineProps({
 <style scoped lang="scss">
 .my-card {
   @media (max-width: 420px) {
-    min-width: 100%;
+    min-width: 90%;
   }
 }
 </style>

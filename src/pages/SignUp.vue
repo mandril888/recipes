@@ -41,7 +41,7 @@
       :rules="['date']"
     >
       <template v-slot:append>
-        <q-icon name="event" class="cursor-pointer">
+        <q-icon name="close" class="cursor-pointer">
           <q-popup-proxy cover transition-show="scale" transition-hide="scale">
             <q-date v-model="date">
               <div class="row items-center justify-end">

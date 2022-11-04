@@ -131,7 +131,11 @@ const props = defineProps({
 
 <style scoped lang="scss">
 .my-card {
-  min-width: 250px;
+  min-width: 300px;
+
+  @media (max-width: 430px) {
+    min-width: 90%;
+  }
 
   .text-subitle2 {
     color: #353535;

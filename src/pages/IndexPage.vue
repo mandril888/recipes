@@ -1,6 +1,8 @@
 <template>
   <q-page class="column">
-    <h3 class="q-mt-lg q-mb-xs text-center">Recipes search</h3>
+    <h3 class="q-mt-lg q-mb-xs text-center" id="recipe-searcher">
+      Recipes search
+    </h3>
 
     <RecipeSearcher @search-done="setupRecipes" />
 
@@ -37,7 +39,7 @@
       </div>
     </Transition>
 
-    <h3 class="text-center">Random recipes</h3>
+    <h3 class="text-center" id="random-recipes">Random recipes</h3>
 
     <div v-if="loadingRandom" class="row justify-center q-ma-xl">
       <q-spinner class="flex flex-center" color="primary" size="6em" />
@@ -101,7 +103,11 @@ function setupRecipes(data) {
 
 function loadMoreRecipes() {
   offset.value += 6;
-  window.scrollTo({ top: 200, behavior: "smooth" });
+
+  if (document.getElementById("recipe-searcher"))
+    document
+      .getElementById("recipe-searcher")
+      .scrollIntoView({ behavior: "smooth" });
 }
 
 provide("offset", offset);
@@ -115,6 +121,11 @@ fetch(randomFoodJokeUrl)
   });
 
 function getandomRecipes() {
+  if (document.getElementById("random-recipes"))
+    document
+      .getElementById("random-recipes")
+      .scrollIntoView({ behavior: "smooth" });
+
   fetch(randomRecipesUrl)
     .then((res) => {
       if (res.ok) return res.json();
